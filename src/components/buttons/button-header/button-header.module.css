@@ -1,0 +1,17 @@
+
+  
+.button_header {
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 8px;
+  margin-right: 10px;
+}
+
+/* .button_header span {
+  margin-left: 8px;
+  color: #F2F2F3;
+  font-size: 24px;
+} */
