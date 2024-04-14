@@ -8,4 +8,10 @@
     height: 208px;
     width:272px;
     text-align: center;
+    margin: 16px 12px;
+}
+
+.price {
+    display: flex;
+    align-items: center;
 }

@@ -6,9 +6,10 @@ import BurgerIngredientsTabPanel from './burger-ingredients-tab-panel/burger-ing
 export default function BurgerIngredients() {
   return (
     <section className={styles.column}>
-      <p className="text text_type_main-large">Соберите бургер</p>
+      <p className="text text_type_main-large">Соберите бургер</p>      
 
       <BurgerIngredientsTabPanel />
+      <div style={{ paddingTop: 40 }}></div>
 
       <p className="text text_type_main-medium">Булки</p>
       <BurgerIngredientsList data={data} type="bun"/>

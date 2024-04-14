@@ -1,5 +1,8 @@
 .column {
-    position: relative;
-    width: 600px;
-    height: 650px;
+    width: 650px;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
 }

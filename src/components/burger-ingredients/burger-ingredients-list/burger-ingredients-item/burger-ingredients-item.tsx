@@ -15,8 +15,9 @@ export default function BurgerIngredientsItem({
   return (
     <div className={styles.ingredient}>
       <img src={image} />
-      <span className="text text_type_digits-default mr-3">
-        {price}<CurrencyIcon type="primary" />
+      <span className={styles.price}>
+        <span className="text text_type_digits-default mr-3">{price}</span>
+        <CurrencyIcon type="primary" />
       </span>
       <span className="text text_type_main-default">{name}</span>
     </div>
