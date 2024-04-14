@@ -18,7 +18,7 @@ export default function AppHeader() {
             </div>
             <div className={styles.right_container}>
                 <ButtonHeader>
-                    <ProfileIcon /><span className="text text_type_main-default">Лента заказов</span>
+                    <ProfileIcon /><span className="text text_type_main-default">Личный кабинет</span>
                 </ButtonHeader>
             </div>
         </header>        
