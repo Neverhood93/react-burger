@@ -1,5 +1,12 @@
 .column{
     position: relative;
-    width: 650px;
+    width: 600px;
     padding-top: 80px;
+}
+
+.price {
+    padding-top: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
 }
