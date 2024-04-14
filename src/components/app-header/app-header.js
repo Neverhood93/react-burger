@@ -7,10 +7,10 @@ export default function AppHeader() {
         <header className={styles.header}>
             <div className={styles.left_container}>
                 <ButtonHeader>
-                    <BurgerIcon /><span className="text text_type_main-medium">Конструктор</span>
+                    <BurgerIcon /><span className="text text_type_main-default">Конструктор</span>
                 </ButtonHeader>
                 <ButtonHeader>
-                    <ListIcon  /><span className="text text_type_main-medium">Лента заказов</span>
+                    <ListIcon  /><span className="text text_type_main-default">Лента заказов</span>
                 </ButtonHeader>
             </div>
             <div className={styles.logo}>
@@ -18,7 +18,7 @@ export default function AppHeader() {
             </div>
             <div className={styles.right_container}>
                 <ButtonHeader>
-                    <ProfileIcon /><span className="text text_type_main-medium">Лента заказов</span>
+                    <ProfileIcon /><span className="text text_type_main-default">Лента заказов</span>
                 </ButtonHeader>
             </div>
         </header>        
