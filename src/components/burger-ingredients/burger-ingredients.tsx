@@ -9,7 +9,7 @@ export default function BurgerIngredients() {
       <p className="text text_type_main-large">Соберите бургер</p>      
 
       <BurgerIngredientsTabPanel />
-      <div style={{ paddingTop: 40 }}></div>
+      <div className={styles.container}></div>
 
       <p className="text text_type_main-medium">Булки</p>
       <BurgerIngredientsList data={data} type="bun"/>

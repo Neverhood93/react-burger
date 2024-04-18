@@ -1,12 +1,14 @@
-import PropTypes from "prop-types";
-import BurgerConstructorListItem from './burger-constructor-list-item/burger-constructor-list-item'
-import BurgerConstructorUnlockList from './burger-constructor-unlock-list/burger-constructor-unlock-list'
+import React from 'react';
+import { BurgerConstructorListProps } from "../../../types/types";
+import BurgerConstructorListItem from './burger-constructor-list-item/burger-constructor-list-item';
+import BurgerConstructorUnlockList from './burger-constructor-unlock-list/burger-constructor-unlock-list';
+import './burger-constructor-list.module.css';
 
-export default function BurgerConstructorList({ data }) {
+const BurgerConstructorList: React.FC<BurgerConstructorListProps> = ({ data }) => {
     const items = data.filter((item) => ["sauce", "main"].includes(item.type));
 
     return (
-        <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+        <div className="constructor-list">
             {/* Пока захардкожено, для проверки */}
             <BurgerConstructorListItem
                 type="top"
@@ -15,7 +17,7 @@ export default function BurgerConstructorList({ data }) {
                 price={200}
                 thumbnail="https://code.s3.yandex.net/react/code/meat-01.png"
             />
-            <BurgerConstructorUnlockList data={items}/>
+            <BurgerConstructorUnlockList data={items} />
             <BurgerConstructorListItem
                 type="bottom"
                 isLocked={true}
@@ -27,13 +29,5 @@ export default function BurgerConstructorList({ data }) {
     );
 }
 
-const burgerConstructorItem = PropTypes.shape({
-  name: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  _id: PropTypes.string.isRequired,
-});
+export default BurgerConstructorList;
 
-BurgerConstructorList.propTypes = {
-  data: PropTypes.arrayOf(burgerConstructorItem).isRequired,
-};
