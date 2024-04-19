@@ -17,6 +17,7 @@ const BurgerIngredientsList: React.FC<
     <ul className={styles.list}>
       {items.map((item) => (
         <BurgerIngredientsItem
+          key={item._id}
           {...item}
           onIngredientClick={onIngredientClick}
         />

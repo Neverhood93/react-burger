@@ -4,11 +4,13 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 720px;
+    max-width: 720px;
     background-color: #131316;
     padding: 40px;
     z-index: 30;
     border-radius: 40px;
     overflow: hidden;
+    box-sizing: border-box;
 }
 
 .header {

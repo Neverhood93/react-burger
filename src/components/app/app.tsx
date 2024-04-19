@@ -43,7 +43,7 @@ function App() {
       const data = await response.json();
       setIngredients(data.data);
     } catch (err: any) {
-      setError(err.message); // Обработка ошибок
+      setError(err.message);
     } finally {
       setLoading(false);
     }
