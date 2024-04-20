@@ -40,6 +40,9 @@ function App() {
     setLoading(true);
     try {
       const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error(`Ошибка HTTP запроса: ${response.status}`);
+      }
       const data = await response.json();
       setIngredients(data.data);
     } catch (err: any) {
