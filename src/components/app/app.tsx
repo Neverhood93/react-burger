@@ -36,24 +36,33 @@ function App() {
     setOrderModalOpen(false);
   };
 
-  const fetchIngredients = async () => {
-    setLoading(true);
+  const getIngredients = async () => {
     try {
       const response = await fetch(API_URL);
       if (!response.ok) {
         throw new Error(`Ошибка HTTP запроса: ${response.status}`);
       }
+
       const data = await response.json();
-      setIngredients(data.data);
-    } catch (err: any) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
+
+      return data;
+    } catch (err) {
+      throw err;
     }
   };
 
   useEffect(() => {
-    fetchIngredients();
+    setLoading(true);
+    getIngredients()
+      .then((data) => {
+        setIngredients(data.data);
+      })
+      .catch((err) => {
+        setError(err.message);
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
 
   return (
