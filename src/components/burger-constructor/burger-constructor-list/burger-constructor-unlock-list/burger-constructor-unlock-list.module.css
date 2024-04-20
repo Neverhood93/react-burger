@@ -1,0 +1,12 @@
+.column {
+    width: 600px;
+    display: flex;
+    flex-direction: column;
+    min-height: 0px;
+    max-height: calc(100vh - 620px);
+    overflow-y: auto;
+}
+
+.item {
+    margin: 8px 0px;
+}

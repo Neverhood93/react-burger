@@ -1,0 +1,35 @@
+.details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 40px;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.details img {
+    width: 480px;
+    height: 240px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+}
+
+.parameters {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    margin-top: 32px;
+    color: #8585AD;
+}
+
+.parameter_block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-basis: calc(25% - 10px);
+    text-align: center;
+}
+
+.parameter_value {
+    font-size: 28px;
+}

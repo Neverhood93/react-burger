@@ -1,0 +1,27 @@
+.header {
+  background-color: #1C1C21;
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 40px 0;
+  height: 88px;
+}
+
+.left_container{
+  display: flex;
+  align-items: center;
+  padding-left: 200px;
+}
+
+.right_container {
+  display: flex;
+  align-items: center;
+  padding-right: 200px;
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
