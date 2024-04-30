@@ -29,3 +29,8 @@ export interface BurgerConstructorListItemProps {
   price: number;
   thumbnail: string;
 }
+
+export interface BurgerIngredientsTabPanelProps {
+  currentTab: string;
+  setCurrentTab: (tab: string) => void;
+}
