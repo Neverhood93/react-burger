@@ -16,6 +16,7 @@ const BurgerConstructorUnlockList: React.FC<SelectedBurgerIngredientsProps> = ({
             text={item.name}
             price={item.price}
             thumbnail={item.image}
+            uniqueId={item.uniqueId}
           />
         </div>
       ))}

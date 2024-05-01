@@ -48,6 +48,7 @@ export interface BurgerConstructorListItemProps {
   text: string;
   price: number;
   thumbnail: string;
+  uniqueId: string;
 }
 
 export interface BurgerIngredientsTabPanelProps {

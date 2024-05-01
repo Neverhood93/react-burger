@@ -39,6 +39,7 @@ const BurgerConstructorList: React.FC = () => {
             text={selectedBun?.name ? `${selectedBun.name} (верх)` : ""}
             price={selectedBun?.price ?? 0}
             thumbnail={selectedBun?.image ?? ""}
+            uniqueId={selectedBun.uniqueId}
           />
           <BurgerConstructorUnlockList data={selectedIngredients} />
           <BurgerConstructorListItem
@@ -47,6 +48,7 @@ const BurgerConstructorList: React.FC = () => {
             text={selectedBun?.name ? `${selectedBun.name} (низ)` : ""}
             price={selectedBun?.price ?? 0}
             thumbnail={selectedBun?.image ?? ""}
+            uniqueId={selectedBun.uniqueId}
           />
         </>
       )}
