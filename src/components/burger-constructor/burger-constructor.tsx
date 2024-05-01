@@ -3,11 +3,10 @@ import styles from "./burger-constructor.module.css";
 import BurgerConstructorList from "./burger-constructor-list/burger-constructor-list";
 import TotalPrice from "../total-price/total-price";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
-import { BurgerIngredientsProps } from "../../types/types";
 import Modal from "../modal/modal";
 import OrderDetails from "../modal/order-details/order-details";
 
-const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ data }) => {
+const BurgerConstructor: React.FC = () => {
   const [isOrderModalOpen, setOrderModalOpen] = useState(false);
 
   const openOrderModal = () => {
@@ -19,7 +18,7 @@ const BurgerConstructor: React.FC<BurgerIngredientsProps> = ({ data }) => {
   };
   return (
     <section className={styles.column}>
-      <BurgerConstructorList data={data} />
+      <BurgerConstructorList />
       <div className={styles.price}>
         <TotalPrice price={610} />
         <Button
