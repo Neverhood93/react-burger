@@ -4,6 +4,7 @@ import styles from "./burger-ingredients-item.module.css";
 import { BurgerIngredient } from "../../../../types/types";
 import Modal from "../../../modal/modal";
 import IngredientDetails from "../../../modal/ingredient-details/ingredient-details";
+import { useDrag } from "react-dnd";
 
 const BurgerIngredientsItem: React.FC<BurgerIngredient> = ({ ...props }) => {
   const [isIngredientModalOpen, setIngredientModalOpen] = useState(false);
@@ -23,9 +24,17 @@ const BurgerIngredientsItem: React.FC<BurgerIngredient> = ({ ...props }) => {
     openIngredientModal(props);
   };
 
+  const [{ isDragging }, dragRef] = useDrag(() => ({
+    type: "ingredient",
+    item: { ...props },
+    collect: (monitor) => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  }));
+
   return (
     <>
-      <div className={styles.ingredient} onClick={handleClick}>
+      <div ref={dragRef} className={styles.ingredient} onClick={handleClick}>
         <img src={props.image} alt={props.name} />
         <span className={styles.price}>
           <span className="text text_type_digits-default mr-3">
