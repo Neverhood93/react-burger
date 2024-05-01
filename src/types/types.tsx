@@ -55,3 +55,16 @@ export interface BurgerIngredientsTabPanelProps {
   currentTab: string;
   setCurrentTab: (tab: string) => void;
 }
+
+export interface DraggableIngredientProps {
+  id: string;
+  text: string;
+  price: number;
+  thumbnail: string;
+  index: number;
+}
+
+export interface DragItem {
+  id: string;
+  index: number;
+}
