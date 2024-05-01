@@ -5,16 +5,21 @@ import { BurgerIngredient } from "../../../../types/types";
 import Modal from "../../../modal/modal";
 import IngredientDetails from "../../../modal/ingredient-details/ingredient-details";
 import { useDrag } from "react-dnd";
-import { useAppSelector } from "../../../../services/hooks";
+import { useAppDispatch, useAppSelector } from "../../../../services/hooks";
 import {
   getSelectedBun,
   getSelectedIngredients,
 } from "../../../../services/burger-constructor/selectors";
+import {
+  openIngredientModal,
+  closeIngredientModal,
+} from "../../../../services/burger-ingredients-item/reducer";
+import { getIngredientModal } from "../../../../services/burger-ingredients-item/selectors";
 
 const BurgerIngredientsItem: React.FC<BurgerIngredient> = ({ ...props }) => {
-  const [isIngredientModalOpen, setIngredientModalOpen] = useState(false);
-  const [selectedIngredient, setSelectedIngredient] =
-    useState<BurgerIngredient | null>(null);
+  const dispatch = useAppDispatch();
+  const { isIngredientModalOpen, selectedIngredientModal } =
+    useAppSelector(getIngredientModal);
 
   const selectedIngredients = useAppSelector(getSelectedIngredients);
   const selectedBun = useAppSelector(getSelectedBun);
@@ -24,17 +29,12 @@ const BurgerIngredientsItem: React.FC<BurgerIngredient> = ({ ...props }) => {
       ? 2
       : selectedIngredients.filter((item) => item._id === props._id).length;
 
-  const openIngredientModal = (ingredient: BurgerIngredient) => {
-    setSelectedIngredient(ingredient);
-    setIngredientModalOpen(true);
+  const handleOpenIngredientClick = () => {
+    dispatch(openIngredientModal(props));
   };
 
-  const closeIngredientModal = () => {
-    setIngredientModalOpen(false);
-  };
-
-  const handleClick = () => {
-    openIngredientModal(props);
+  const handleCloseIngredientClick = () => {
+    dispatch(closeIngredientModal());
   };
 
   const [{ isDragging }, dragRef] = useDrag(() => ({
@@ -47,7 +47,11 @@ const BurgerIngredientsItem: React.FC<BurgerIngredient> = ({ ...props }) => {
 
   return (
     <>
-      <div ref={dragRef} className={styles.ingredient} onClick={handleClick}>
+      <div
+        ref={dragRef}
+        className={styles.ingredient}
+        onClick={handleOpenIngredientClick}
+      >
         <img src={props.image} alt={props.name} />
         <span className={styles.price}>
           <span className="text text_type_digits-default mr-3">
@@ -62,11 +66,16 @@ const BurgerIngredientsItem: React.FC<BurgerIngredient> = ({ ...props }) => {
           </div>
         )}
       </div>
-      {isIngredientModalOpen && selectedIngredient && (
-        <Modal title="Детали ингредиента" onClose={closeIngredientModal}>
-          <IngredientDetails ingredient={selectedIngredient} />
-        </Modal>
-      )}
+      {isIngredientModalOpen &&
+        selectedIngredientModal &&
+        selectedIngredientModal._id === props._id && (
+          <Modal
+            title="Детали ингредиента"
+            onClose={handleCloseIngredientClick}
+          >
+            <IngredientDetails ingredient={selectedIngredientModal} />
+          </Modal>
+        )}
     </>
   );
 };
