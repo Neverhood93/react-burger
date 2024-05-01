@@ -25,21 +25,31 @@ const BurgerConstructorList: React.FC = () => {
 
   return (
     <div ref={dropRef} className="constructor-list">
-      <BurgerConstructorListItem
-        type="top"
-        isLocked={true}
-        text={selectedBun?.name ? `${selectedBun.name} (верх)` : ""}
-        price={selectedBun?.price ?? 0}
-        thumbnail={selectedBun?.image ?? ""}
-      />
-      <BurgerConstructorUnlockList data={selectedIngredients} />
-      <BurgerConstructorListItem
-        type="bottom"
-        isLocked={true}
-        text={selectedBun?.name ? `${selectedBun.name} (низ)` : ""}
-        price={selectedBun?.price ?? 0}
-        thumbnail={selectedBun?.image ?? ""}
-      />
+      {!selectedBun ? (
+        <div>
+          <p className="text text_type_main-large">
+            Выберете булочку и перенесите ее сюда
+          </p>
+        </div>
+      ) : (
+        <>
+          <BurgerConstructorListItem
+            type="top"
+            isLocked={true}
+            text={selectedBun?.name ? `${selectedBun.name} (верх)` : ""}
+            price={selectedBun?.price ?? 0}
+            thumbnail={selectedBun?.image ?? ""}
+          />
+          <BurgerConstructorUnlockList data={selectedIngredients} />
+          <BurgerConstructorListItem
+            type="bottom"
+            isLocked={true}
+            text={selectedBun?.name ? `${selectedBun.name} (низ)` : ""}
+            price={selectedBun?.price ?? 0}
+            thumbnail={selectedBun?.image ?? ""}
+          />
+        </>
+      )}
     </div>
   );
 };

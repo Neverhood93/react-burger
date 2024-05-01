@@ -21,7 +21,7 @@ export const selectedIngredientsSlice = createSlice({
         const ingredient = action.payload;
         if (ingredient.type === "bun") {
           state.bun = ingredient;
-        } else {
+        } else if (state.bun) {
           state.ingredients.push(ingredient);
         }
       },
