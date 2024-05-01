@@ -10,6 +10,8 @@ import {
 } from "../../services/ingredients/selectors";
 import { loadIngredients } from "../../services/ingredients/actions";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -31,8 +33,10 @@ function App() {
 
           <div className={styles.content}>
             <main className={styles.main}>
-              <BurgerIngredients data={ingredients} />
-              <BurgerConstructor data={ingredients} />
+              <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients data={ingredients} />
+                <BurgerConstructor data={ingredients} />
+              </DndProvider>
             </main>
           </div>
         </>

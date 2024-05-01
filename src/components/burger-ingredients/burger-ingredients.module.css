@@ -3,7 +3,7 @@
     display: flex;
     flex-direction: column;
     min-height: 300px;
-    max-height: calc(100vh - 335px);
+    max-height: calc(100vh - 340px);
     overflow-y: auto;
 }
 
