@@ -47,8 +47,20 @@ export const selectedIngredientsSlice = createSlice({
       state.bun = null;
       state.ingredients = [];
     },
+    moveIngredient(
+      state,
+      action: PayloadAction<{ fromIndex: number; toIndex: number }>,
+    ) {
+      const { fromIndex, toIndex } = action.payload;
+      const ingredient = state.ingredients.splice(fromIndex, 1)[0];
+      state.ingredients.splice(toIndex, 0, ingredient);
+    },
   },
 });
 
-export const { addIngredient, removeIngredient, clearIngredients } =
-  selectedIngredientsSlice.actions;
+export const {
+  addIngredient,
+  removeIngredient,
+  clearIngredients,
+  moveIngredient,
+} = selectedIngredientsSlice.actions;
