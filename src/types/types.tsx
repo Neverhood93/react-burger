@@ -42,6 +42,10 @@ export interface BurgerIngredientsListProps {
   type: string;
 }
 
+export interface OrderDetailsProps {
+  orderNumber: number;
+}
+
 export interface BurgerConstructorListItemProps {
   type?: "top" | "bottom" | undefined;
   isLocked?: boolean;
@@ -67,4 +71,12 @@ export interface DraggableIngredientProps {
 export interface DragItem {
   id: string;
   index: number;
+}
+
+export interface OrderResponse {
+  name: string;
+  order: {
+    number: number;
+  };
+  success: boolean;
 }

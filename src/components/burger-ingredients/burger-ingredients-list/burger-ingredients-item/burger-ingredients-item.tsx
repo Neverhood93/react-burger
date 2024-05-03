@@ -13,8 +13,8 @@ import {
 import {
   openIngredientModal,
   closeIngredientModal,
-} from "../../../../services/burger-ingredients-item/reducer";
-import { getIngredientModal } from "../../../../services/burger-ingredients-item/selectors";
+} from "../../../../services/ingredient-details/reducer";
+import { getIngredientModal } from "../../../../services/ingredient-details/selectors";
 
 const BurgerIngredientsItem: React.FC<BurgerIngredient> = ({ ...props }) => {
   const dispatch = useAppDispatch();
