@@ -27,6 +27,7 @@ export const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createOrder.pending, (state) => {
+        state.currentOrder = null;
         state.orderLoading = true;
         state.orderError = null;
         state.isOrderDetailModalOpen = true;
@@ -37,6 +38,7 @@ export const orderSlice = createSlice({
         state.isOrderDetailModalOpen = true;
       })
       .addCase(createOrder.rejected, (state, action) => {
+        state.currentOrder = null;
         state.orderLoading = false;
         state.orderError = action.payload as string;
         state.isOrderDetailModalOpen = true;
