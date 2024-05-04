@@ -2,10 +2,13 @@ import React, { useCallback, useRef } from "react";
 import styles from "./burger-ingredients.module.css";
 import BurgerIngredientsList from "./burger-ingredients-list/burger-ingredients-list";
 import BurgerIngredientsTabPanel from "./burger-ingredients-tab-panel/burger-ingredients-tab-panel";
-import { BurgerIngredientsProps } from "../../types/types";
+import { useAppSelector } from "../../services/hooks";
+import { getIngredients } from "../../services/ingredients/selectors";
 
-const BurgerIngredients: React.FC<BurgerIngredientsProps> = ({ data }) => {
+const BurgerIngredients: React.FC = () => {
   const [currentTab, setCurrentTab] = React.useState<string>("bun");
+
+  const data = useAppSelector(getIngredients);
 
   const topRef = useRef<HTMLDivElement>(null);
   const bunRef = useRef<HTMLHeadingElement>(null);

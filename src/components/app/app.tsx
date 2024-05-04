@@ -34,7 +34,7 @@ function App() {
           <div className={styles.content}>
             <main className={styles.main}>
               <DndProvider backend={HTML5Backend}>
-                <BurgerIngredients data={ingredients} />
+                <BurgerIngredients />
                 <BurgerConstructor />
               </DndProvider>
             </main>
