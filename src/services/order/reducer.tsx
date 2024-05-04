@@ -40,7 +40,7 @@ export const orderSlice = createSlice({
       .addCase(createOrder.rejected, (state, action) => {
         state.currentOrder = null;
         state.orderLoading = false;
-        state.orderError = action.payload as string;
+        state.orderError = action?.error?.message as string;
         state.isOrderDetailModalOpen = true;
       });
   },

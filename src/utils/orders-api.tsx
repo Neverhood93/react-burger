@@ -1,27 +1,14 @@
 import { OrderResponse } from "../types/types";
-
-const apiConfig = {
-  baseUrl: "https://norma.nomoreparties.space/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
-
-const getResponse = async (res: Response): Promise<OrderResponse> => {
-  if (res.ok) {
-    const result: OrderResponse = await res.json();
-    return result;
-  }
-  throw new Error(`Ошибка ${res.status}`);
-};
+import { baseApiConfig } from "./api-config";
+import getResponse from "./api-utils";
 
 export const postOrder = async (
   ingredientIds: string[],
 ): Promise<OrderResponse> => {
-  const res = await fetch(`${apiConfig.baseUrl}/orders`, {
+  const res = await fetch(`${baseApiConfig.baseUrl}/orders`, {
     method: "POST",
-    headers: apiConfig.headers,
+    headers: baseApiConfig.headers,
     body: JSON.stringify({ ingredients: ingredientIds }),
   });
-  return getResponse(res);
+  return getResponse(res, (data) => data as OrderResponse);
 };

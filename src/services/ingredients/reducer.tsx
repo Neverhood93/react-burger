@@ -30,7 +30,7 @@ export const ingredientsSlice = createSlice({
       })
       .addCase(loadIngredients.rejected, (state, action) => {
         state.ingredientsLoading = false;
-        state.ingredientsError = action.payload as string;
+        state.ingredientsError = action?.error?.message as string;
       });
   },
 });

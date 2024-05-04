@@ -80,3 +80,7 @@ export interface OrderResponse {
   };
   success: boolean;
 }
+
+export interface IngredientsApiResponse {
+  data: BurgerIngredient[];
+}
