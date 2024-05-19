@@ -13,7 +13,7 @@ import BurgerIngredients from "../../components/burger-ingredients/burger-ingred
 import BurgerConstructor from "../../components/burger-constructor/burger-constructor";
 import Preloader from "../../components/common/preloader/preloader";
 
-function Home() {
+function HomePage() {
   const dispatch = useAppDispatch();
   const ingredients = useAppSelector(getIngredients);
   const loading = useAppSelector(getIngredientsLoading);
@@ -41,4 +41,4 @@ function Home() {
   );
 }
 
-export default Home;
+export default HomePage;
