@@ -1,45 +1,27 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styles from "./app.module.css";
 import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
-import { BurgerIngredient } from "../../types/types";
-
-const API_URL = "https://norma.nomoreparties.space/api/ingredients";
+import {
+  getIngredientsError,
+  getIngredientsLoading,
+  getIngredients,
+} from "../../services/ingredients/selectors";
+import { loadIngredients } from "../../services/ingredients/actions";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 function App() {
-  const [ingredients, setIngredients] = useState<BurgerIngredient[]>([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
-
-  const getIngredients = async () => {
-    try {
-      const response = await fetch(API_URL);
-      if (!response.ok) {
-        throw new Error(`Ошибка HTTP запроса: ${response.status}`);
-      }
-
-      const data = await response.json();
-
-      return data;
-    } catch (err) {
-      throw err;
-    }
-  };
+  const dispatch = useAppDispatch();
+  const ingredients = useAppSelector(getIngredients);
+  const loading = useAppSelector(getIngredientsLoading);
+  const error = useAppSelector(getIngredientsError);
 
   useEffect(() => {
-    setLoading(true);
-    getIngredients()
-      .then((data) => {
-        setIngredients(data.data);
-      })
-      .catch((err) => {
-        setError(err.message);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
+    dispatch(loadIngredients());
+  }, [dispatch]);
 
   return (
     <>
@@ -51,8 +33,10 @@ function App() {
 
           <div className={styles.content}>
             <main className={styles.main}>
-              <BurgerIngredients data={ingredients} />
-              <BurgerConstructor data={ingredients} />
+              <DndProvider backend={HTML5Backend}>
+                <BurgerIngredients />
+                <BurgerConstructor />
+              </DndProvider>
             </main>
           </div>
         </>

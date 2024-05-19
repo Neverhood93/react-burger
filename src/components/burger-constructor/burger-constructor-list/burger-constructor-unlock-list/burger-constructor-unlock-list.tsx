@@ -1,23 +1,22 @@
 import React from "react";
-import BurgerConstructorListItem from "../burger-constructor-list-item/burger-constructor-list-item";
 import styles from "./burger-constructor-unlock-list.module.css";
-import { BurgerIngredientsProps } from "../../../../types/types";
+import { SelectedBurgerIngredientsProps } from "../../../../types/types";
+import DraggableIngredient from "./draggable-ingredient";
 
-const BurgerConstructorUnlockList: React.FC<BurgerIngredientsProps> = ({
+const BurgerConstructorUnlockList: React.FC<SelectedBurgerIngredientsProps> = ({
   data,
 }) => {
-  const items = data.filter((item) => ["sauce", "main"].includes(item.type));
-
   return (
     <div className={styles.column}>
-      {items.map((item) => (
-        <div className={styles.item} key={item._id}>
-          <BurgerConstructorListItem
-            text={item.name}
-            price={item.price}
-            thumbnail={item.image}
-          />
-        </div>
+      {data.map((item, index) => (
+        <DraggableIngredient
+          key={item.uniqueId}
+          id={item.uniqueId}
+          text={item.name}
+          price={item.price}
+          thumbnail={item.image}
+          index={index}
+        />
       ))}
     </div>
   );

@@ -4,6 +4,8 @@ import {
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { BurgerConstructorListItemProps } from "../../../../types/types";
+import { useAppDispatch } from "../../../../services/hooks";
+import { removeIngredient } from "../../../../services/burger-constructor/reducer";
 
 const BurgerConstructorListItem: React.FC<BurgerConstructorListItemProps> = ({
   text,
@@ -11,7 +13,12 @@ const BurgerConstructorListItem: React.FC<BurgerConstructorListItemProps> = ({
   thumbnail,
   type,
   isLocked = false,
+  uniqueId,
 }) => {
+  const dispatch = useAppDispatch();
+  const handleRemoveIngredient = () => {
+    dispatch(removeIngredient(uniqueId));
+  };
   return (
     <div>
       <DragIcon
@@ -23,6 +30,7 @@ const BurgerConstructorListItem: React.FC<BurgerConstructorListItemProps> = ({
         thumbnail={thumbnail}
         type={type}
         isLocked={isLocked}
+        handleClose={handleRemoveIngredient}
       />
     </div>
   );
