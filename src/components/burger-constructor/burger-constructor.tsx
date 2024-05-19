@@ -4,7 +4,7 @@ import BurgerConstructorList from "./burger-constructor-list/burger-constructor-
 import TotalPrice from "../total-price/total-price";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
-import OrderDetails from "../modal/order-details/order-details";
+import OrderDetails from "../order-details/order-details";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { getAllSelectedIngredients } from "../../services/burger-constructor/selectors";
 import {

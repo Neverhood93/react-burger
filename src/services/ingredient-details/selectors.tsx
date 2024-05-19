@@ -1,3 +1,4 @@
 import { RootState } from "../store";
 
-export const getIngredientModal = (state: RootState) => state.ingredientModal;
+export const getSelectedIngredient = (state: RootState) =>
+  state.ingredientModal;

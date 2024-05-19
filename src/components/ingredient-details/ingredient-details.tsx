@@ -1,22 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./ingredient-details.module.css";
-import { useAppDispatch, useAppSelector } from "../../../services/hooks";
-import { getIngredientModal } from "../../../services/ingredient-details/selectors";
-import { getIngredients } from "../../../services/ingredients/selectors";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
+import { getSelectedIngredient } from "../../services/ingredient-details/selectors";
+import { getIngredients } from "../../services/ingredients/selectors";
 import { useParams } from "react-router-dom";
-import NotFoundPage from "../../../pages/not-found/not-found";
-import { BurgerIngredient } from "../../../types/types";
-import { openIngredientModal } from "../../../services/ingredient-details/reducer";
+import NotFoundPage from "../../pages/not-found/not-found";
+import { BurgerIngredient } from "../../types/types";
+import { openIngredientModal } from "../../services/ingredient-details/reducer";
 
 const IngredientDetails: React.FC = () => {
   const dispatch = useAppDispatch();
 
-  const { selectedIngredientModal } = useAppSelector(getIngredientModal);
+  const { selectedIngredient } = useAppSelector(getSelectedIngredient);
   const ingredients = useAppSelector(getIngredients);
   const { id } = useParams<{ id?: string }>();
 
-  React.useEffect(() => {
-    if (!selectedIngredientModal && id && ingredients) {
+  useEffect(() => {
+    if (!selectedIngredient && id && ingredients) {
       const ingredient = ingredients.find(
         (ingredient: BurgerIngredient) => ingredient._id === id,
       );
@@ -24,20 +24,17 @@ const IngredientDetails: React.FC = () => {
         dispatch(openIngredientModal(ingredient));
       }
     }
-  }, [selectedIngredientModal, id, ingredients, dispatch]);
+  }, [selectedIngredient, id, ingredients, dispatch]);
 
-  if (!selectedIngredientModal) {
+  if (!selectedIngredient) {
     return <NotFoundPage />;
   }
 
   return (
     <div className={styles.details}>
-      <img
-        src={selectedIngredientModal.image_large}
-        alt={selectedIngredientModal.name}
-      />
+      <img src={selectedIngredient.image_large} alt={selectedIngredient.name} />
       <p className="text text_type_main-medium mt-4">
-        {selectedIngredientModal.name}
+        {selectedIngredient.name}
       </p>
       <div className={styles.parameters}>
         <div className={styles.parameter_block}>
@@ -45,7 +42,7 @@ const IngredientDetails: React.FC = () => {
           <span
             className={`text text_type_main-default ${styles.parameter_value}`}
           >
-            {selectedIngredientModal.calories}
+            {selectedIngredient.calories}
           </span>
         </div>
         <div className={styles.parameter_block}>
@@ -53,7 +50,7 @@ const IngredientDetails: React.FC = () => {
           <span
             className={`text text_type_main-default ${styles.parameter_value}`}
           >
-            {selectedIngredientModal.proteins}
+            {selectedIngredient.proteins}
           </span>
         </div>
         <div className={styles.parameter_block}>
@@ -61,7 +58,7 @@ const IngredientDetails: React.FC = () => {
           <span
             className={`text text_type_main-default ${styles.parameter_value}`}
           >
-            {selectedIngredientModal.fat}
+            {selectedIngredient.fat}
           </span>
         </div>
         <div className={styles.parameter_block}>
@@ -69,7 +66,7 @@ const IngredientDetails: React.FC = () => {
           <span
             className={`text text_type_main-default ${styles.parameter_value}`}
           >
-            {selectedIngredientModal.carbohydrates}
+            {selectedIngredient.carbohydrates}
           </span>
         </div>
       </div>

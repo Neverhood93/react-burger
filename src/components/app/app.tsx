@@ -18,7 +18,7 @@ import {
 } from "../../services/ingredients/selectors";
 import { loadIngredients } from "../../services/ingredients/actions";
 import Preloader from "../common/preloader/preloader";
-import IngredientDetails from "../modal/ingredient-details/ingredient-details";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 
 function App() {
   const dispatch = useAppDispatch();
