@@ -5,13 +5,14 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import { Link } from "react-router-dom";
-import styles from "./login.module.css";
+import styles from "../common/form.module.css";
 
 function LoginPage() {
   return (
     <div className={styles.container}>
       <form className={styles.form}>
         <h2 className={"text text_type_main-medium mb-6"}>Вход</h2>
+
         <div className="mb-6">
           <Input
             type={"email"}
