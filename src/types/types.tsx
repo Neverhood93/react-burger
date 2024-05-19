@@ -29,6 +29,10 @@ export interface SelectedBurgerIngredient {
   uniqueId: string;
 }
 
+export interface IngredientDetailsProps {
+  ingredient: BurgerIngredient;
+}
+
 export interface BurgerIngredientsProps {
   data: BurgerIngredient[];
 }
