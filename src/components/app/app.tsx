@@ -19,6 +19,7 @@ import {
 import { loadIngredients } from "../../services/ingredients/actions";
 import Preloader from "../common/preloader/preloader";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrdersPage from "../../pages/orders/orders";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -55,6 +56,7 @@ function App() {
         <Route path="/forgot-password" element={<ForgotPasswordPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/orders" element={<OrdersPage />} />
         <Route path="/ingredients/:id" element={<IngredientDetailsPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
