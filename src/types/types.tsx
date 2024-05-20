@@ -88,3 +88,31 @@ export interface OrderResponse {
 export interface IngredientsApiResponse {
   data: BurgerIngredient[];
 }
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  success: boolean;
+  user: User;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface User {
+  email: string;
+  name: string;
+}
+
+export interface RegisterRequest {
+  email: string;
+  password: string;
+  name: string;
+}
+
+export interface LogoutResponse {
+  success: boolean;
+  message: string;
+}

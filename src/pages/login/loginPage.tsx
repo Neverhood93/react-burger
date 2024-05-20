@@ -3,11 +3,23 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "../common/form.module.css";
+import { useAppDispatch } from "../../services/hooks";
+import { login } from "../../services/auth/action";
 
 function LoginPage() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      login({
+        email: "test234sdf234234@test.com",
+        password: "123345",
+      }),
+    );
+  }, []);
+
   return (
     <div className={styles.container}>
       <form className={styles.form}>

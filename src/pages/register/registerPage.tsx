@@ -4,10 +4,23 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "../common/form.module.css";
+import { useAppDispatch } from "../../services/hooks";
+import { register } from "../../services/auth/action";
 
 function RegisterPage() {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      register({
+        email: "test234sdf234234@test.com",
+        name: "test123",
+        password: "123345",
+      }),
+    );
+  }, []);
+
   return (
     <div className={styles.container}>
       <form className={styles.form}>
