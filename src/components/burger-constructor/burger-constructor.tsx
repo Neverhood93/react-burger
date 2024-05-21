@@ -16,6 +16,7 @@ import {
 import { createOrder } from "../../services/order/actions";
 import { closeOrderDetailModal } from "../../services/order/reducer";
 import { clearIngredients } from "../../services/burger-constructor/reducer";
+import Preloader from "../common/preloader/preloader";
 
 const BurgerConstructor: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -74,7 +75,7 @@ const BurgerConstructor: React.FC = () => {
         {isOrderDetailModalOpen && (
           <Modal title="" onClose={closeOrderModal}>
             <>
-              {loading && <p>Загрузка...</p>}
+              {loading && <Preloader />}
               {error && <p>Ошибка: {error}</p>}
               {currentOrder && (
                 <OrderDetails orderNumber={currentOrder.order.number} />

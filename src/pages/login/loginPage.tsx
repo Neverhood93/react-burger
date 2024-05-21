@@ -6,10 +6,18 @@ import {
 import React, { FormEvent } from "react";
 import { Link } from "react-router-dom";
 import styles from "../common/form.module.css";
-import { useAppDispatch } from "../../services/hooks";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { login } from "../../services/auth/action";
 import { LoginRequest } from "../../types/types";
 import { useForm } from "../../hooks/useForm";
+import {
+  getAuthError,
+  getAuthLoading,
+  getIsAuthModalOpen,
+} from "../../services/auth/selectors";
+import Modal from "../../components/modal/modal";
+import Preloader from "../../components/common/preloader/preloader";
+import { closeAuthModal } from "../../services/auth/reducer";
 
 function LoginPage() {
   const { formState, handleFieldChange } = useForm<LoginRequest>({
@@ -18,6 +26,13 @@ function LoginPage() {
   });
 
   const dispatch = useAppDispatch();
+  const isAuthModalOpen = useAppSelector(getIsAuthModalOpen);
+  const isAuthLoading = useAppSelector(getAuthLoading);
+  const authError = useAppSelector(getAuthError);
+
+  const closeModal = () => {
+    dispatch(closeAuthModal());
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -67,6 +82,14 @@ function LoginPage() {
           Восстановить пароль
         </Link>
       </p>
+      {isAuthModalOpen && (
+        <Modal title="" onClose={closeModal}>
+          <>
+            {isAuthLoading && <Preloader />}
+            {authError && <p>Ошибка: {authError}</p>}
+          </>
+        </Modal>
+      )}
     </div>
   );
 }

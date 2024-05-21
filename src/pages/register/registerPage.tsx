@@ -6,10 +6,18 @@ import {
 import { Link } from "react-router-dom";
 import React, { FormEvent } from "react";
 import styles from "../common/form.module.css";
-import { useAppDispatch } from "../../services/hooks";
+import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { register } from "../../services/auth/action";
 import { RegisterRequest } from "../../types/types";
 import { useForm } from "../../hooks/useForm";
+import {
+  getAuthError,
+  getAuthLoading,
+  getIsAuthModalOpen,
+} from "../../services/auth/selectors";
+import Modal from "../../components/modal/modal";
+import Preloader from "../../components/common/preloader/preloader";
+import { closeAuthModal } from "../../services/auth/reducer";
 
 function RegisterPage() {
   const { formState, handleFieldChange } = useForm<RegisterRequest>({
@@ -19,6 +27,13 @@ function RegisterPage() {
   });
 
   const dispatch = useAppDispatch();
+  const isAuthModalOpen = useAppSelector(getIsAuthModalOpen);
+  const isAuthLoading = useAppSelector(getAuthLoading);
+  const authError = useAppSelector(getAuthError);
+
+  const closeModal = () => {
+    dispatch(closeAuthModal());
+  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -73,6 +88,14 @@ function RegisterPage() {
           Войти
         </Link>
       </p>
+      {isAuthModalOpen && (
+        <Modal title="" onClose={closeModal}>
+          <>
+            {isAuthLoading && <Preloader />}
+            {authError && <p>Ошибка: {authError}</p>}
+          </>
+        </Modal>
+      )}
     </div>
   );
 }
