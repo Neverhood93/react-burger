@@ -4,26 +4,33 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import React, { useEffect } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 import styles from "../common/form.module.css";
 import { useAppDispatch } from "../../services/hooks";
 import { register } from "../../services/auth/action";
+import { RegisterRequest } from "../../types/types";
 
 function RegisterPage() {
+  const [formState, setFormState] = useState<RegisterRequest>({
+    email: "",
+    password: "",
+    name: "",
+  });
+
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(
-      register({
-        email: "test234sdf234234@test.com",
-        name: "test123",
-        password: "123345",
-      }),
-    );
-  }, []);
+
+  const handleFieldValueChanged = (e: ChangeEvent<HTMLInputElement>) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    dispatch(register(formState));
+  };
 
   return (
     <div className={styles.container}>
-      <form className={styles.form}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <h2 className={"text text_type_main-medium mb-6"}>Регистрация</h2>
 
         <div className="mb-6">
@@ -31,8 +38,8 @@ function RegisterPage() {
             type={"text"}
             name={"name"}
             placeholder={"Имя"}
-            value={""}
-            onChange={() => {}}
+            value={formState.name}
+            onChange={handleFieldValueChanged}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           />
@@ -43,18 +50,22 @@ function RegisterPage() {
             type={"email"}
             name={"email"}
             placeholder={"E-mail"}
-            value={""}
-            onChange={() => {}}
+            value={formState.email}
+            onChange={handleFieldValueChanged}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           />
         </div>
 
         <div className="mb-6">
-          <PasswordInput name={"password"} value={""} onChange={() => {}} />
+          <PasswordInput
+            name={"password"}
+            value={formState.password}
+            onChange={handleFieldValueChanged}
+          />
         </div>
 
-        <Button htmlType="button" type="primary" size="large">
+        <Button htmlType="submit" type="primary" size="large">
           Зарегистрироваться
         </Button>
       </form>
