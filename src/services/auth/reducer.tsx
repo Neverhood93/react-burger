@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { User } from "../../types/types";
 import {
   editUser,
@@ -27,6 +27,35 @@ const initialState: AuthState = {
   isAuthModalOpen: false,
 };
 
+const handlePending = (state: AuthState) => {
+  state.authLoading = true;
+  state.authError = null;
+  state.isAuthModalOpen = true;
+};
+
+const handleAuthFulfilled = (state: AuthState, action: PayloadAction<any>) => {
+  if (action.payload?.user) {
+    state.user = action.payload?.user;
+  }
+  if (action.payload?.accessToken) {
+    localStorage.setItem("token", action.payload.accessToken);
+  }
+  if (action.payload?.refreshToken) {
+    localStorage.setItem("refreshToken", action.payload.refreshToken);
+  }
+  state.authLoading = false;
+  state.isLoggedIn = true;
+  state.isAuthModalOpen = false;
+};
+
+const handleRejected = (state: AuthState, action: any) => {
+  state.user = null;
+  state.authLoading = false;
+  state.isLoggedIn = false;
+  state.authError = action?.error?.message || "Неизвестная ошибка";
+  state.isAuthModalOpen = true;
+};
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -37,56 +66,16 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(register.pending, (state) => {
-        state.user = null;
-        state.authLoading = true;
-        state.authError = null;
-        state.isAuthModalOpen = true;
-      })
-      .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload?.user;
-        localStorage.setItem("token", action.payload?.accessToken);
-        localStorage.setItem("refreshToken", action.payload?.refreshToken);
-        state.authLoading = false;
-        state.isLoggedIn = true;
-        state.isAuthModalOpen = false;
-      })
-      .addCase(register.rejected, (state, action) => {
-        state.user = null;
-        state.authLoading = false;
-        state.isLoggedIn = false;
-        state.authError = action?.error?.message as string;
-        state.isAuthModalOpen = true;
-      })
+      .addCase(register.pending, handlePending)
+      .addCase(register.fulfilled, handleAuthFulfilled)
+      .addCase(register.rejected, handleRejected)
 
-      .addCase(login.pending, (state) => {
-        state.user = null;
-        state.authLoading = true;
-        state.authError = null;
-        state.isAuthModalOpen = true;
-      })
-      .addCase(login.fulfilled, (state, action) => {
-        state.user = action.payload?.user;
-        localStorage.setItem("token", action.payload?.accessToken);
-        localStorage.setItem("refreshToken", action.payload?.refreshToken);
-        state.authLoading = false;
-        state.isLoggedIn = true;
-        state.isAuthModalOpen = false;
-      })
-      .addCase(login.rejected, (state, action) => {
-        state.user = null;
-        state.authLoading = false;
-        state.isLoggedIn = false;
-        state.authError = action?.error?.message as string;
-        state.isAuthModalOpen = true;
-      })
+      .addCase(login.pending, handlePending)
+      .addCase(login.fulfilled, handleAuthFulfilled)
+      .addCase(login.rejected, handleRejected)
 
-      .addCase(logout.pending, (state) => {
-        state.authLoading = true;
-        state.authError = null;
-        state.isAuthModalOpen = true;
-      })
-      .addCase(logout.fulfilled, (state, action) => {
+      .addCase(logout.pending, handlePending)
+      .addCase(logout.fulfilled, (state) => {
         state.user = null;
         localStorage.setItem("token", "");
         localStorage.setItem("refreshToken", "");
@@ -94,103 +83,27 @@ export const authSlice = createSlice({
         state.isLoggedIn = false;
         state.isAuthModalOpen = false;
       })
-      .addCase(logout.rejected, (state, action) => {
-        state.user = null;
-        state.authLoading = false;
-        state.isLoggedIn = false;
-        state.authError = action?.error?.message as string;
-        state.isAuthModalOpen = true;
-      })
+      .addCase(logout.rejected, handleRejected)
 
-      .addCase(forgotPassword.pending, (state) => {
-        state.authLoading = true;
-        state.authError = null;
-        state.isAuthModalOpen = true;
-      })
-      .addCase(forgotPassword.fulfilled, (state, action) => {
-        state.authLoading = false;
-        state.isAuthModalOpen = false;
-      })
-      .addCase(forgotPassword.rejected, (state, action) => {
-        state.authLoading = false;
-        state.authError = action?.error?.message as string;
-        state.isAuthModalOpen = true;
-      })
+      .addCase(forgotPassword.pending, handlePending)
+      .addCase(forgotPassword.fulfilled, handleAuthFulfilled)
+      .addCase(forgotPassword.rejected, handleRejected)
 
-      .addCase(resetPassword.pending, (state) => {
-        state.authLoading = true;
-        state.authError = null;
-        state.isAuthModalOpen = true;
-      })
-      .addCase(resetPassword.fulfilled, (state, action) => {
-        state.authLoading = false;
-        state.isAuthModalOpen = false;
-      })
-      .addCase(resetPassword.rejected, (state, action) => {
-        state.authLoading = false;
-        state.authError = action?.error?.message as string;
-        state.isAuthModalOpen = true;
-      })
+      .addCase(resetPassword.pending, handlePending)
+      .addCase(resetPassword.fulfilled, handleAuthFulfilled)
+      .addCase(resetPassword.rejected, handleRejected)
 
-      .addCase(getUser.pending, (state) => {
-        state.user = null;
-        state.authLoading = true;
-        state.authError = null;
-        state.isAuthModalOpen = true;
-      })
-      .addCase(getUser.fulfilled, (state, action) => {
-        state.user = action.payload?.user;
-        state.authLoading = false;
-        state.isLoggedIn = true;
-        state.isAuthModalOpen = false;
-      })
-      .addCase(getUser.rejected, (state, action) => {
-        state.user = null;
-        state.authLoading = false;
-        state.isLoggedIn = false;
-        state.authError = action?.error?.message as string;
-        state.isAuthModalOpen = true;
-      })
+      .addCase(getUser.pending, handlePending)
+      .addCase(getUser.fulfilled, handleAuthFulfilled)
+      .addCase(getUser.rejected, handleRejected)
 
-      .addCase(editUser.pending, (state) => {
-        state.user = null;
-        state.authLoading = true;
-        state.authError = null;
-        state.isAuthModalOpen = true;
-      })
-      .addCase(editUser.fulfilled, (state, action) => {
-        state.user = action.payload?.user;
-        state.authLoading = false;
-        state.isLoggedIn = true;
-        state.isAuthModalOpen = false;
-      })
-      .addCase(editUser.rejected, (state, action) => {
-        state.user = null;
-        state.authLoading = false;
-        state.isLoggedIn = false;
-        state.authError = action?.error?.message as string;
-        state.isAuthModalOpen = true;
-      })
+      .addCase(editUser.pending, handlePending)
+      .addCase(editUser.fulfilled, handleAuthFulfilled)
+      .addCase(editUser.rejected, handleRejected)
 
-      .addCase(refreshToken.pending, (state) => {
-        state.authError = null;
-        state.isAuthModalOpen = true;
-      })
-      .addCase(refreshToken.fulfilled, (state, action) => {
-        localStorage.setItem("token", action.payload?.accessToken);
-        localStorage.setItem("refreshToken", action.payload?.refreshToken);
-        state.authLoading = false;
-        state.isLoggedIn = true;
-        state.isAuthModalOpen = false;
-      })
-      .addCase(refreshToken.rejected, (state, action) => {
-        localStorage.setItem("token", "");
-        localStorage.setItem("refreshToken", "");
-        state.authLoading = false;
-        state.isLoggedIn = false;
-        state.authError = action?.error?.message as string;
-        state.isAuthModalOpen = true;
-      });
+      .addCase(refreshToken.pending, handlePending)
+      .addCase(refreshToken.fulfilled, handleAuthFulfilled)
+      .addCase(refreshToken.rejected, handleRejected);
   },
 });
 
