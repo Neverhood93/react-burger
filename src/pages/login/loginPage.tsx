@@ -3,24 +3,21 @@ import {
   Input,
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { FormEvent } from "react";
 import { Link } from "react-router-dom";
 import styles from "../common/form.module.css";
 import { useAppDispatch } from "../../services/hooks";
 import { login } from "../../services/auth/action";
 import { LoginRequest } from "../../types/types";
+import { useForm } from "../../hooks/useForm";
 
 function LoginPage() {
-  const [formState, setFormState] = useState<LoginRequest>({
+  const { formState, handleFieldChange } = useForm<LoginRequest>({
     email: "",
     password: "",
   });
 
   const dispatch = useAppDispatch();
-
-  const handleFieldValueChanged = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -38,7 +35,7 @@ function LoginPage() {
             name={"email"}
             placeholder={"E-mail"}
             value={formState.email}
-            onChange={handleFieldValueChanged}
+            onChange={handleFieldChange}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           />
@@ -48,7 +45,7 @@ function LoginPage() {
           <PasswordInput
             name={"password"}
             value={formState.password}
-            onChange={handleFieldValueChanged}
+            onChange={handleFieldChange}
           />
         </div>
 

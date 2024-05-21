@@ -4,24 +4,21 @@ import {
   PasswordInput,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { Link } from "react-router-dom";
-import React, { ChangeEvent, FormEvent, useState } from "react";
+import React, { FormEvent } from "react";
 import styles from "../common/form.module.css";
 import { useAppDispatch } from "../../services/hooks";
 import { register } from "../../services/auth/action";
 import { RegisterRequest } from "../../types/types";
+import { useForm } from "../../hooks/useForm";
 
 function RegisterPage() {
-  const [formState, setFormState] = useState<RegisterRequest>({
+  const { formState, handleFieldChange } = useForm<RegisterRequest>({
     email: "",
     password: "",
     name: "",
   });
 
   const dispatch = useAppDispatch();
-
-  const handleFieldValueChanged = (e: ChangeEvent<HTMLInputElement>) => {
-    setFormState({ ...formState, [e.target.name]: e.target.value });
-  };
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
@@ -39,7 +36,7 @@ function RegisterPage() {
             name={"name"}
             placeholder={"Имя"}
             value={formState.name}
-            onChange={handleFieldValueChanged}
+            onChange={handleFieldChange}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           />
@@ -51,7 +48,7 @@ function RegisterPage() {
             name={"email"}
             placeholder={"E-mail"}
             value={formState.email}
-            onChange={handleFieldValueChanged}
+            onChange={handleFieldChange}
             onPointerEnterCapture={undefined}
             onPointerLeaveCapture={undefined}
           />
@@ -61,7 +58,7 @@ function RegisterPage() {
           <PasswordInput
             name={"password"}
             value={formState.password}
-            onChange={handleFieldValueChanged}
+            onChange={handleFieldChange}
           />
         </div>
 
