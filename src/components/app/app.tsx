@@ -20,6 +20,8 @@ import { loadIngredients } from "../../services/ingredients/actions";
 import Preloader from "../common/preloader/preloader";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import OrdersPage from "../../pages/orders/orders";
+import { AuthRoute, UnAuthRoute } from "../protected-route/protected-route";
+import { checkUserAuth } from "../../services/auth/action";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -29,6 +31,7 @@ function App() {
 
   useEffect(() => {
     dispatch(loadIngredients());
+    dispatch(checkUserAuth());
   }, [dispatch]);
 
   const location = useLocation();
@@ -51,13 +54,34 @@ function App() {
 
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordPage />} />
-        <Route path="/reset-password" element={<ResetPasswordPage />} />
-        <Route path="/profile" element={<ProfilePage />} />
-        <Route path="/orders" element={<OrdersPage />} />
         <Route path="/ingredients/:id" element={<IngredientDetailsPage />} />
+
+        <Route
+          path="/login"
+          element={<UnAuthRoute component={<LoginPage />} />}
+        />
+        <Route
+          path="/register"
+          element={<UnAuthRoute component={<RegisterPage />} />}
+        />
+        <Route
+          path="/forgot-password"
+          element={<UnAuthRoute component={<ForgotPasswordPage />} />}
+        />
+        <Route
+          path="/reset-password"
+          element={<UnAuthRoute component={<ResetPasswordPage />} />}
+        />
+
+        <Route
+          path="/profile"
+          element={<AuthRoute component={<ProfilePage />} />}
+        />
+        <Route
+          path="/orders"
+          element={<AuthRoute component={<OrdersPage />} />}
+        />
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
 

@@ -73,7 +73,7 @@ export const getUserEndpoint = async (
     method: "GET",
     headers: {
       ...baseApiConfig.headers,
-      Authorization: "Bearer " + accessToken,
+      Authorization: accessToken,
     },
   });
   return getResponse(res, (data) => data as UserResponse);
@@ -86,7 +86,7 @@ export const editUserEndpoint = async (
     method: "PATCH",
     headers: {
       ...baseApiConfig.headers,
-      Authorization: "Bearer " + requestData.accessToken,
+      Authorization: requestData.accessToken,
     },
     body: JSON.stringify(requestData.registerRequestData),
   });

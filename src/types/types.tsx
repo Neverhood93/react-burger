@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface BurgerIngredient {
   _id: string;
   name: string;
@@ -136,4 +138,9 @@ export interface RefreshTokenResponse {
   success: boolean;
   accessToken: string;
   refreshToken: string;
+}
+
+export interface ProtectedRouteProps {
+  onlyUnAuth?: boolean;
+  component: React.ReactNode;
 }

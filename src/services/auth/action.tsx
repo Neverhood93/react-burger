@@ -19,6 +19,7 @@ import {
   registerEndpoint,
   resetPasswordEndpoint,
 } from "../../utils/auth-api";
+import { AppDispatch } from "../store";
 
 export const register = createAsyncThunk<LoginResponse, RegisterRequest>(
   "auth/register",
@@ -75,3 +76,14 @@ export const refreshToken = createAsyncThunk<RefreshTokenResponse, string>(
     return await refreshTokenEndpoint(refreshToken);
   },
 );
+
+export const checkUserAuth = createAsyncThunk<
+  void,
+  void,
+  { dispatch: AppDispatch }
+>("auth/checkUserAuth", async (_, { dispatch }) => {
+  const accessToken = localStorage.getItem("token");
+  if (accessToken) {
+    dispatch(getUser(accessToken));
+  }
+});
