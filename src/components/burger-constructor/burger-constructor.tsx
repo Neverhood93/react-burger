@@ -17,17 +17,26 @@ import { createOrder } from "../../services/order/actions";
 import { closeOrderDetailModal } from "../../services/order/reducer";
 import { clearIngredients } from "../../services/burger-constructor/reducer";
 import Preloader from "../common/preloader/preloader";
+import { getIsLoggedIn } from "../../services/auth/selectors";
+import { useNavigate } from "react-router-dom";
 
 const BurgerConstructor: React.FC = () => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const isOrderDetailModalOpen = useAppSelector(getIsOrderDetailModalOpen);
   const currentOrder = useAppSelector(getCurrentOrder);
   const loading = useAppSelector(getOrderLoading);
   const error = useAppSelector(getOrderError);
+  const isLoggedIn = useAppSelector(getIsLoggedIn);
 
   const burgersData = useAppSelector(getAllSelectedIngredients);
 
   const createOrderHandler = () => {
+    if (!isLoggedIn) {
+      navigate("/login", { replace: true });
+      return;
+    }
+
     if (!burgersData.bun) {
       alert(
         "Пожалуйста, добавьте булку в ваш бургер перед оформлением заказа.",
