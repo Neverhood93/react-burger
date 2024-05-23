@@ -40,7 +40,18 @@
     max-width: 320px;
 }
 
-.link {
+.link_active {
     text-decoration: none;
-    color: var(--colors-interface-accent);
+    color: white;
+}
+
+.link_inactive {
+    text-decoration: none;
+    color: #8585AD;
+}
+
+.logout {
+    cursor: pointer;
+    text-decoration: none;
+    color: #8585AD;
 }

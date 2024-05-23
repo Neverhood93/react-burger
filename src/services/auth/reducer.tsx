@@ -17,6 +17,7 @@ interface AuthState {
   authLoading: boolean;
   authError: string | null;
   isAuthModalOpen: boolean;
+  isForgotPasswordSent: boolean;
 }
 
 const initialState: AuthState = {
@@ -25,12 +26,14 @@ const initialState: AuthState = {
   authLoading: false,
   authError: null,
   isAuthModalOpen: false,
+  isForgotPasswordSent: false,
 };
 
 const handlePending = (state: AuthState) => {
   state.authLoading = true;
   state.authError = null;
   state.isAuthModalOpen = true;
+  state.isForgotPasswordSent = false;
 };
 
 const handleAuthFulfilled = (state: AuthState, action: PayloadAction<any>) => {
@@ -54,6 +57,7 @@ const handleRejected = (state: AuthState, action: any) => {
   state.isLoggedIn = false;
   state.authError = action?.error?.message || "Неизвестная ошибка";
   state.isAuthModalOpen = true;
+  state.isForgotPasswordSent = false;
 };
 
 export const authSlice = createSlice({
@@ -86,7 +90,11 @@ export const authSlice = createSlice({
       .addCase(logout.rejected, handleRejected)
 
       .addCase(forgotPassword.pending, handlePending)
-      .addCase(forgotPassword.fulfilled, handleAuthFulfilled)
+      .addCase(forgotPassword.fulfilled, (state) => {
+        state.isForgotPasswordSent = true;
+        state.authLoading = false;
+        state.isAuthModalOpen = false;
+      })
       .addCase(forgotPassword.rejected, handleRejected)
 
       .addCase(resetPassword.pending, handlePending)

@@ -21,9 +21,9 @@ import { closeAuthModal } from "../../services/auth/reducer";
 
 function RegisterPage() {
   const { formState, handleFieldChange } = useForm<RegisterRequest>({
+    name: "",
     email: "",
     password: "",
-    name: "",
   });
 
   const dispatch = useAppDispatch();

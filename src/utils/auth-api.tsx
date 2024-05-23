@@ -7,6 +7,7 @@ import {
   RegisterRequest,
   ResetPasswordRequest,
   EditUserRequest,
+  ForgotPasswordRequest,
 } from "../types/types";
 import { baseApiConfig } from "./api-config";
 import getResponse from "./api-utils";
@@ -34,23 +35,23 @@ export const loginEndpoint = async (
 };
 
 export const logoutEndpoint = async (
-  refreshToken: string,
+  token: string,
 ): Promise<CommonResponse> => {
   const res = await fetch(`${baseApiConfig.baseUrl}/auth/logout`, {
     method: "POST",
     headers: baseApiConfig.headers,
-    body: JSON.stringify({ refreshToken }),
+    body: JSON.stringify({ token }),
   });
   return getResponse(res, (data) => data as CommonResponse);
 };
 
 export const forgotPasswordEndpoint = async (
-  email: string,
+  requestData: ForgotPasswordRequest,
 ): Promise<CommonResponse> => {
-  const res = await fetch(`${baseApiConfig.baseUrl}/auth/forgot-password`, {
+  const res = await fetch(`${baseApiConfig.baseUrl}/password-reset`, {
     method: "POST",
     headers: baseApiConfig.headers,
-    body: JSON.stringify({ email }),
+    body: JSON.stringify(requestData),
   });
   return getResponse(res, (data) => data as CommonResponse);
 };
@@ -58,7 +59,7 @@ export const forgotPasswordEndpoint = async (
 export const resetPasswordEndpoint = async (
   requestData: ResetPasswordRequest,
 ): Promise<CommonResponse> => {
-  const res = await fetch(`${baseApiConfig.baseUrl}/auth/reset-password`, {
+  const res = await fetch(`${baseApiConfig.baseUrl}/password-reset/reset`, {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify(requestData),
@@ -99,7 +100,7 @@ export const refreshTokenEndpoint = async (
   const res = await fetch(`${baseApiConfig.baseUrl}/auth/token`, {
     method: "POST",
     headers: baseApiConfig.headers,
-    body: JSON.stringify({ refreshToken }),
+    body: JSON.stringify({ token: refreshToken }),
   });
   return getResponse(res, (data) => data as RefreshTokenResponse);
 };

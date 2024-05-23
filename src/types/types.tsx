@@ -109,6 +109,10 @@ export interface LoginResponse {
   refreshToken: string;
 }
 
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
 export interface User {
   email: string;
   name: string;
@@ -121,7 +125,7 @@ export interface CommonResponse {
 
 export interface ResetPasswordRequest {
   password: string;
-  accessToken: string;
+  token: string;
 }
 
 export interface UserResponse {

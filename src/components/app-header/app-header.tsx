@@ -7,8 +7,11 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
 import { NavLink } from "react-router-dom";
+import { useAppSelector } from "../../services/hooks";
+import { getCurrentUser } from "../../services/auth/selectors";
 
 export default function AppHeader() {
+  const user = useAppSelector(getCurrentUser);
   return (
     <header className={styles.header}>
       <div className={styles.left_container}>
@@ -48,7 +51,7 @@ export default function AppHeader() {
               <span
                 className={`text text_type_main-default ${isActive ? styles.link_active : styles.link_inactive}`}
               >
-                Личный кабинет
+                {user ? user.name : "Личный кабинет"}
               </span>
             </ButtonHeader>
           )}

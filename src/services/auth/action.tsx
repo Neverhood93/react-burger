@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
   CommonResponse,
   EditUserRequest,
+  ForgotPasswordRequest,
   LoginRequest,
   LoginResponse,
   RefreshTokenResponse,
@@ -42,12 +43,12 @@ export const logout = createAsyncThunk<CommonResponse, string>(
   },
 );
 
-export const forgotPassword = createAsyncThunk<CommonResponse, string>(
-  "auth/forgotPassword",
-  async (email) => {
-    return await forgotPasswordEndpoint(email);
-  },
-);
+export const forgotPassword = createAsyncThunk<
+  CommonResponse,
+  ForgotPasswordRequest
+>("auth/forgotPassword", async (requestData) => {
+  return await forgotPasswordEndpoint(requestData);
+});
 
 export const resetPassword = createAsyncThunk<
   CommonResponse,
@@ -56,12 +57,25 @@ export const resetPassword = createAsyncThunk<
   return await resetPasswordEndpoint(requestData);
 });
 
-export const getUser = createAsyncThunk<UserResponse, string>(
-  "auth/getUser",
-  async (accessToken) => {
+export const getUser = createAsyncThunk<
+  UserResponse,
+  string,
+  { dispatch: AppDispatch }
+>("auth/getUser", async (accessToken, { dispatch }) => {
+  try {
     return await getUserEndpoint(accessToken);
-  },
-);
+  } catch (error: any) {
+    if (error.message === "jwt expired") {
+      const refreshTokenValue = localStorage.getItem("refreshToken") || "";
+      await dispatch(refreshToken(refreshTokenValue));
+      const newAccessToken = localStorage.getItem("token") || "";
+      const newResult = await getUserEndpoint(newAccessToken);
+      return newResult;
+    } else {
+      throw error;
+    }
+  }
+});
 
 export const editUser = createAsyncThunk<UserResponse, EditUserRequest>(
   "auth/editUser",
