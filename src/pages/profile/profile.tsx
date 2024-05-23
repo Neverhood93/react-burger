@@ -23,7 +23,7 @@ import Preloader from "../../components/common/preloader/preloader";
 function ProfilePage() {
   const initName = useAppSelector(getCurrentUser)?.name || "";
   const initEmail = useAppSelector(getCurrentUser)?.email || "";
-  const initPassword = "********";
+  const initPassword = "";
 
   const { formState, handleFieldChange, setFormState } =
     useForm<RegisterRequest>({
@@ -102,6 +102,7 @@ function ProfilePage() {
           <div className="mb-6">
             <PasswordInput
               name={"password"}
+              placeholder={"Введите новый пароль"}
               value={formState.password}
               onChange={handleFieldChange}
               icon={"EditIcon"}
