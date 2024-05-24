@@ -76,26 +76,24 @@ function ProfilePage() {
       <div className={styles.container_col}>
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className="mb-6">
+            {/* @ts-ignore */}
             <Input
               type={"text"}
               name={"name"}
               placeholder={"Имя"}
               value={formState.name}
               onChange={handleFieldChange}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
               icon={"EditIcon"}
             />
           </div>
           <div className="mb-6">
+            {/* @ts-ignore */}
             <Input
               type={"email"}
               name={"email"}
               placeholder={"Логин"}
               value={formState.email}
               onChange={handleFieldChange}
-              onPointerEnterCapture={undefined}
-              onPointerLeaveCapture={undefined}
               icon={"EditIcon"}
             />
           </div>
@@ -106,6 +104,7 @@ function ProfilePage() {
               value={formState.password}
               onChange={handleFieldChange}
               icon={"EditIcon"}
+              autoComplete={formState.password}
             />
           </div>
           {isButtonVisible && (

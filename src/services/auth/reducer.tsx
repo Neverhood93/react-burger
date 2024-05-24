@@ -97,7 +97,11 @@ export const authSlice = createSlice({
       })
       .addCase(forgotPassword.rejected, handleRejected)
 
-      .addCase(resetPassword.pending, handlePending)
+      .addCase(resetPassword.pending, (state) => {
+        state.authLoading = true;
+        state.authError = null;
+        state.isAuthModalOpen = true;
+      })
       .addCase(resetPassword.fulfilled, handleAuthFulfilled)
       .addCase(resetPassword.rejected, handleRejected)
 

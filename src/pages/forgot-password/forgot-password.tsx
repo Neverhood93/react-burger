@@ -52,14 +52,13 @@ function ForgotPasswordPage() {
         </h2>
 
         <div className="mb-6">
+          {/* @ts-ignore */}
           <Input
             type={"email"}
             name={"email"}
             placeholder={"Укажите e-mail"}
             value={formState.email}
             onChange={handleFieldChange}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           />
         </div>
 

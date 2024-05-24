@@ -3,12 +3,10 @@ import styles from "./ingredient-details.module.css";
 
 function IngredientDetailsPage() {
   return (
-    <>
-      <div className={styles.page}>
-        <h1 className={styles.header}>Детали ингредиента</h1>
-        <IngredientDetails />
-      </div>
-    </>
+    <div className={styles.page}>
+      <h1 className={styles.header}>Детали ингредиента</h1>
+      <IngredientDetails />
+    </div>
   );
 }
 

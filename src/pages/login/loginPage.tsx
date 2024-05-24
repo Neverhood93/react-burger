@@ -45,14 +45,13 @@ function LoginPage() {
         <h2 className={"text text_type_main-medium mb-6"}>Вход</h2>
 
         <div className="mb-6">
+          {/* @ts-ignore */}
           <Input
             type={"email"}
             name={"email"}
             placeholder={"E-mail"}
             value={formState.email}
             onChange={handleFieldChange}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           />
         </div>
 
@@ -61,6 +60,7 @@ function LoginPage() {
             name={"password"}
             value={formState.password}
             onChange={handleFieldChange}
+            autoComplete={formState.password}
           />
         </div>
 

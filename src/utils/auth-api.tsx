@@ -12,78 +12,81 @@ import {
 import { baseApiConfig } from "./api-config";
 import getResponse from "./api-utils";
 
+async function request<TResponse>(
+  endpoint: string,
+  options: RequestInit,
+): Promise<TResponse> {
+  const url = `${baseApiConfig.baseUrl}${endpoint}`;
+  const res = await fetch(url, options);
+  return getResponse(res, (data) => data as TResponse);
+}
+
 export const registerEndpoint = async (
   requestData: RegisterRequest,
 ): Promise<LoginResponse> => {
-  const res = await fetch(`${baseApiConfig.baseUrl}/auth/register`, {
+  return await request<LoginResponse>("/auth/register", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify(requestData),
   });
-  return getResponse(res, (data) => data as LoginResponse);
 };
 
 export const loginEndpoint = async (
   requestData: LoginRequest,
 ): Promise<LoginResponse> => {
-  const res = await fetch(`${baseApiConfig.baseUrl}/auth/login`, {
+  return await request<LoginResponse>("/auth/login", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify(requestData),
   });
-  return getResponse(res, (data) => data as LoginResponse);
 };
 
 export const logoutEndpoint = async (
   token: string,
 ): Promise<CommonResponse> => {
-  const res = await fetch(`${baseApiConfig.baseUrl}/auth/logout`, {
+  return await request<CommonResponse>("/auth/logout", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify({ token }),
   });
-  return getResponse(res, (data) => data as CommonResponse);
 };
 
 export const forgotPasswordEndpoint = async (
   requestData: ForgotPasswordRequest,
 ): Promise<CommonResponse> => {
-  const res = await fetch(`${baseApiConfig.baseUrl}/password-reset`, {
+  return await request<CommonResponse>("/password-reset", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify(requestData),
   });
-  return getResponse(res, (data) => data as CommonResponse);
 };
 
 export const resetPasswordEndpoint = async (
   requestData: ResetPasswordRequest,
 ): Promise<CommonResponse> => {
-  const res = await fetch(`${baseApiConfig.baseUrl}/password-reset/reset`, {
+  return await request<CommonResponse>("/password-reset/reset", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify(requestData),
   });
-  return getResponse(res, (data) => data as CommonResponse);
 };
 
 export const getUserEndpoint = async (
   accessToken: string,
 ): Promise<UserResponse> => {
-  const res = await fetch(`${baseApiConfig.baseUrl}/auth/user`, {
+  return await request<UserResponse>("/auth/user", {
     method: "GET",
     headers: {
       ...baseApiConfig.headers,
       Authorization: accessToken,
     },
   });
-  return getResponse(res, (data) => data as UserResponse);
 };
 
 export const editUserEndpoint = async (
   requestData: EditUserRequest,
 ): Promise<UserResponse> => {
-  const res = await fetch(`${baseApiConfig.baseUrl}/auth/user`, {
+  return await request<UserResponse>("/auth/user", {
     method: "PATCH",
     headers: {
       ...baseApiConfig.headers,
@@ -91,16 +94,14 @@ export const editUserEndpoint = async (
     },
     body: JSON.stringify(requestData.registerRequestData),
   });
-  return getResponse(res, (data) => data as UserResponse);
 };
 
 export const refreshTokenEndpoint = async (
   refreshToken: string,
 ): Promise<RefreshTokenResponse> => {
-  const res = await fetch(`${baseApiConfig.baseUrl}/auth/token`, {
+  return await request<RefreshTokenResponse>("/auth/token", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify({ token: refreshToken }),
   });
-  return getResponse(res, (data) => data as RefreshTokenResponse);
 };

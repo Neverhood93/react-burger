@@ -24,38 +24,28 @@ import { AppDispatch } from "../store";
 
 export const register = createAsyncThunk<LoginResponse, RegisterRequest>(
   "auth/register",
-  async (requestData) => {
-    return await registerEndpoint(requestData);
-  },
+  registerEndpoint,
 );
 
 export const login = createAsyncThunk<LoginResponse, LoginRequest>(
   "auth/login",
-  async (requestData) => {
-    return await loginEndpoint(requestData);
-  },
+  loginEndpoint,
 );
 
 export const logout = createAsyncThunk<CommonResponse, string>(
   "auth/logout",
-  async (refreshToken) => {
-    return await logoutEndpoint(refreshToken);
-  },
+  logoutEndpoint,
 );
 
 export const forgotPassword = createAsyncThunk<
   CommonResponse,
   ForgotPasswordRequest
->("auth/forgotPassword", async (requestData) => {
-  return await forgotPasswordEndpoint(requestData);
-});
+>("auth/forgotPassword", forgotPasswordEndpoint);
 
 export const resetPassword = createAsyncThunk<
   CommonResponse,
   ResetPasswordRequest
->("auth/resetPassword", async (requestData) => {
-  return await resetPasswordEndpoint(requestData);
-});
+>("auth/resetPassword", resetPasswordEndpoint);
 
 export const getUser = createAsyncThunk<
   UserResponse,
@@ -69,8 +59,7 @@ export const getUser = createAsyncThunk<
       const refreshTokenValue = localStorage.getItem("refreshToken") || "";
       await dispatch(refreshToken(refreshTokenValue));
       const newAccessToken = localStorage.getItem("token") || "";
-      const newResult = await getUserEndpoint(newAccessToken);
-      return newResult;
+      return await getUserEndpoint(newAccessToken);
     } else {
       throw error;
     }
@@ -79,16 +68,12 @@ export const getUser = createAsyncThunk<
 
 export const editUser = createAsyncThunk<UserResponse, EditUserRequest>(
   "auth/editUser",
-  async (requestData) => {
-    return await editUserEndpoint(requestData);
-  },
+  editUserEndpoint,
 );
 
 export const refreshToken = createAsyncThunk<RefreshTokenResponse, string>(
   "auth/refreshToken",
-  async (refreshToken) => {
-    return await refreshTokenEndpoint(refreshToken);
-  },
+  refreshTokenEndpoint,
 );
 
 export const checkUserAuth = createAsyncThunk<

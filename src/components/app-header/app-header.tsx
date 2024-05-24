@@ -6,9 +6,10 @@ import {
   ProfileIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./app-header.module.css";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useAppSelector } from "../../services/hooks";
 import { getCurrentUser } from "../../services/auth/selectors";
+import React from "react";
 
 export default function AppHeader() {
   const user = useAppSelector(getCurrentUser);
@@ -41,7 +42,9 @@ export default function AppHeader() {
         </NavLink>
       </div>
       <div className={styles.logo}>
-        <Logo />
+        <Link to="/">
+          <Logo />
+        </Link>
       </div>
       <div className={styles.right_container}>
         <NavLink to="/profile" className={styles.link_inactive}>

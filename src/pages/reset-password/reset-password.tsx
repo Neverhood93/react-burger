@@ -13,6 +13,7 @@ import {
   getAuthError,
   getAuthLoading,
   getIsAuthModalOpen,
+  getIsForgotPasswordSent,
   getIsLoggedIn,
 } from "../../services/auth/selectors";
 import { closeAuthModal } from "../../services/auth/reducer";
@@ -30,8 +31,13 @@ function ResetPasswordPage() {
   const isAuthModalOpen = useAppSelector(getIsAuthModalOpen);
   const isAuthLoading = useAppSelector(getAuthLoading);
   const authError = useAppSelector(getAuthError);
-
   const isLoggedIn = useAppSelector(getIsLoggedIn);
+  const isForgotPasswordSent = useAppSelector(getIsForgotPasswordSent);
+
+  if (!isForgotPasswordSent) {
+    return <Navigate to="/" />;
+  }
+
   if (isLoggedIn) {
     return <Navigate to="/login" />;
   }
@@ -57,18 +63,18 @@ function ResetPasswordPage() {
             placeholder={"Введите новый пароль"}
             value={formState.password}
             onChange={handleFieldChange}
+            autoComplete={formState.password}
           />
         </div>
 
         <div className="mb-6">
+          {/* @ts-ignore */}
           <Input
             type={"text"}
             name={"token"}
             placeholder={"Введите код из письма"}
             value={formState.token}
             onChange={handleFieldChange}
-            onPointerEnterCapture={undefined}
-            onPointerLeaveCapture={undefined}
           />
         </div>
 
