@@ -2,29 +2,25 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { BurgerIngredient } from "../../types/types";
 
 interface IngredientModalState {
-  selectedIngredientModal: BurgerIngredient | null;
-  isIngredientModalOpen: boolean;
+  selectedIngredient: BurgerIngredient | null;
 }
 
 const initialState: IngredientModalState = {
-  selectedIngredientModal: null,
-  isIngredientModalOpen: false,
+  selectedIngredient: null,
 };
 
-export const ingredientModalSlice = createSlice({
+export const ingredientDetailsSlice = createSlice({
   name: "ingredientModal",
   initialState,
   reducers: {
     openIngredientModal: (state, action: PayloadAction<BurgerIngredient>) => {
-      state.selectedIngredientModal = action.payload;
-      state.isIngredientModalOpen = true;
+      state.selectedIngredient = action.payload;
     },
     closeIngredientModal: (state) => {
-      state.selectedIngredientModal = null;
-      state.isIngredientModalOpen = false;
+      state.selectedIngredient = null;
     },
   },
 });
 
 export const { openIngredientModal, closeIngredientModal } =
-  ingredientModalSlice.actions;
+  ingredientDetailsSlice.actions;

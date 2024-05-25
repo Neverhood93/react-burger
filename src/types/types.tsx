@@ -1,3 +1,5 @@
+import React from "react";
+
 export interface BurgerIngredient {
   _id: string;
   name: string;
@@ -27,6 +29,10 @@ export interface SelectedBurgerIngredient {
   image_large: string;
   __v: number;
   uniqueId: string;
+}
+
+export interface IngredientDetailsProps {
+  ingredient: BurgerIngredient;
 }
 
 export interface BurgerIngredientsProps {
@@ -83,4 +89,62 @@ export interface OrderResponse {
 
 export interface IngredientsApiResponse {
   data: BurgerIngredient[];
+}
+
+export interface RegisterRequest {
+  email: string;
+  password: string;
+  name: string;
+}
+
+export interface LoginRequest {
+  email: string;
+  password: string;
+}
+
+export interface LoginResponse {
+  success: boolean;
+  user: User;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface ForgotPasswordRequest {
+  email: string;
+}
+
+export interface User {
+  email: string;
+  name: string;
+}
+
+export interface CommonResponse {
+  success: boolean;
+  message: string;
+}
+
+export interface ResetPasswordRequest {
+  password: string;
+  token: string;
+}
+
+export interface UserResponse {
+  success: boolean;
+  user: User;
+}
+
+export interface EditUserRequest {
+  registerRequestData: RegisterRequest;
+  accessToken: string;
+}
+
+export interface RefreshTokenResponse {
+  success: boolean;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export interface ProtectedRouteProps {
+  onlyUnAuth?: boolean;
+  component: React.ReactNode;
 }

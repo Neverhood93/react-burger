@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./order-details.module.css";
-import checkMark from "../../../images/check-mark.png";
-import { OrderDetailsProps } from "../../../types/types";
+import checkMark from "../../images/check-mark.png";
+import { OrderDetailsProps } from "../../types/types";
 
 const OrderDetails: React.FC<OrderDetailsProps> = ({ orderNumber }) => {
   return (

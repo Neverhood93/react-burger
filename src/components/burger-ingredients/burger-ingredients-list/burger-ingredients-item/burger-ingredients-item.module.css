@@ -31,3 +31,8 @@
     font-size: 24px;
     z-index: 10;
 }
+
+.link {
+    text-decoration: none;
+    color: var(--text-primary-color);
+}

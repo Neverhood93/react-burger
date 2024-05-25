@@ -25,3 +25,13 @@
   left: 50%;
   transform: translateX(-50%);
 }
+
+.link_active {
+  text-decoration: none;
+  color: white;
+}
+
+.link_inactive {
+  text-decoration: none;
+  color: #8585AD;
+}

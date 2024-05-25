@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import {
   ConstructorElement,
   DragIcon,
@@ -6,6 +6,7 @@ import {
 import { BurgerConstructorListItemProps } from "../../../../types/types";
 import { useAppDispatch } from "../../../../services/hooks";
 import { removeIngredient } from "../../../../services/burger-constructor/reducer";
+import styles from "./burger-constructor-list-item.module.css";
 
 const BurgerConstructorListItem: React.FC<BurgerConstructorListItemProps> = ({
   text,
@@ -19,11 +20,15 @@ const BurgerConstructorListItem: React.FC<BurgerConstructorListItemProps> = ({
   const handleRemoveIngredient = () => {
     dispatch(removeIngredient(uniqueId));
   };
+
+  const isBun = useMemo(() => {
+    return ["top", "bottom"].includes(type ?? "");
+  }, [type]);
+
   return (
     <div>
-      <DragIcon
-        type={!["top", "bottom"].includes(type ?? "") ? "primary" : "secondary"}
-      />
+      {!isBun && <DragIcon type={"primary"} />}
+
       <ConstructorElement
         text={text}
         price={price}
@@ -31,6 +36,7 @@ const BurgerConstructorListItem: React.FC<BurgerConstructorListItemProps> = ({
         type={type}
         isLocked={isLocked}
         handleClose={handleRemoveIngredient}
+        extraClass={isBun ? styles.bun : ""}
       />
     </div>
   );
