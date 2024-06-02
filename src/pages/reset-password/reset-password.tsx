@@ -7,7 +7,7 @@ import { Link, Navigate } from "react-router-dom";
 import React, { FormEvent } from "react";
 import styles from "../common/form.module.css";
 import { useForm } from "../../hooks/useForm";
-import { ResetPasswordRequest } from "../../types/types";
+import { IResetPasswordRequest } from "../../types/types";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import {
   getAuthError,
@@ -22,7 +22,7 @@ import Modal from "../../components/modal/modal";
 import Preloader from "../../components/common/preloader/preloader";
 
 function ResetPasswordPage() {
-  const { formState, handleFieldChange } = useForm<ResetPasswordRequest>({
+  const { formState, handleFieldChange } = useForm<IResetPasswordRequest>({
     password: "",
     token: "",
   });

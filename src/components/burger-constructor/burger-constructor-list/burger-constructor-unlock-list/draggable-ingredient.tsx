@@ -4,9 +4,9 @@ import { useDrag, useDrop } from "react-dnd";
 import { moveIngredient } from "../../../../services/burger-constructor/reducer";
 import styles from "./burger-constructor-unlock-list.module.css";
 import BurgerConstructorListItem from "../burger-constructor-list-item/burger-constructor-list-item";
-import { DraggableIngredientProps, DragItem } from "../../../../types/types";
+import { IDraggableIngredient, IDragItem } from "../../../../types/types";
 
-const DraggableIngredient: React.FC<DraggableIngredientProps> = ({
+const DraggableIngredient: React.FC<IDraggableIngredient> = ({
   id,
   text,
   price,
@@ -27,7 +27,7 @@ const DraggableIngredient: React.FC<DraggableIngredientProps> = ({
     }),
   });
 
-  const [, drop] = useDrop<DragItem>({
+  const [, drop] = useDrop<IDragItem>({
     accept: "move_ingredient",
     hover(item, monitor) {
       const dragIndex = item.index;

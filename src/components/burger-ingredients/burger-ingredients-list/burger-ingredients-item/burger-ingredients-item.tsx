@@ -1,7 +1,7 @@
 import React from "react";
 import { CurrencyIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./burger-ingredients-item.module.css";
-import { BurgerIngredient } from "../../../../types/types";
+import { IBurgerIngredient } from "../../../../types/types";
 import { useDrag } from "react-dnd";
 import { useAppSelector } from "../../../../services/hooks";
 import {
@@ -10,7 +10,7 @@ import {
 } from "../../../../services/burger-constructor/selectors";
 import { Link, useLocation } from "react-router-dom";
 
-const BurgerIngredientsItem: React.FC<BurgerIngredient> = ({ ...props }) => {
+const BurgerIngredientsItem: React.FC<IBurgerIngredient> = ({ ...props }) => {
   const selectedIngredients = useAppSelector(getSelectedIngredients);
   const selectedBun = useAppSelector(getSelectedBun);
   const location = useLocation();

@@ -5,7 +5,7 @@ import { getSelectedIngredient } from "../../services/ingredient-details/selecto
 import { getIngredients } from "../../services/ingredients/selectors";
 import { useParams } from "react-router-dom";
 import NotFoundPage from "../../pages/not-found/not-found";
-import { BurgerIngredient } from "../../types/types";
+import { IBurgerIngredient } from "../../types/types";
 import { openIngredientModal } from "../../services/ingredient-details/reducer";
 
 const IngredientDetails: React.FC = () => {
@@ -18,7 +18,7 @@ const IngredientDetails: React.FC = () => {
   useEffect(() => {
     if (!selectedIngredient && id && ingredients) {
       const ingredient = ingredients.find(
-        (ingredient: BurgerIngredient) => ingredient._id === id,
+        (ingredient: IBurgerIngredient) => ingredient._id === id,
       );
       if (ingredient) {
         dispatch(openIngredientModal(ingredient));

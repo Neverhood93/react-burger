@@ -8,7 +8,7 @@ import React, { FormEvent } from "react";
 import styles from "../common/form.module.css";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { register } from "../../services/auth/action";
-import { RegisterRequest } from "../../types/types";
+import { IRegisterRequest } from "../../types/types";
 import { useForm } from "../../hooks/useForm";
 import {
   getAuthError,
@@ -20,7 +20,7 @@ import Preloader from "../../components/common/preloader/preloader";
 import { closeAuthModal } from "../../services/auth/reducer";
 
 function RegisterPage() {
-  const { formState, handleFieldChange } = useForm<RegisterRequest>({
+  const { formState, handleFieldChange } = useForm<IRegisterRequest>({
     name: "",
     email: "",
     password: "",

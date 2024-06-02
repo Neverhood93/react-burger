@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import styles from "../common/form.module.css";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { login } from "../../services/auth/action";
-import { LoginRequest } from "../../types/types";
+import { ILoginRequest } from "../../types/types";
 import { useForm } from "../../hooks/useForm";
 import {
   getAuthError,
@@ -20,7 +20,7 @@ import Preloader from "../../components/common/preloader/preloader";
 import { closeAuthModal } from "../../services/auth/reducer";
 
 function LoginPage() {
-  const { formState, handleFieldChange } = useForm<LoginRequest>({
+  const { formState, handleFieldChange } = useForm<ILoginRequest>({
     email: "",
     password: "",
   });

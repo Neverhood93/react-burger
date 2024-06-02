@@ -9,7 +9,7 @@ import {
 } from "../../../services/burger-constructor/selectors";
 import { addIngredient } from "../../../services/burger-constructor/reducer";
 import { useDrop } from "react-dnd";
-import { BurgerIngredient } from "../../../types/types";
+import { IBurgerIngredient } from "../../../types/types";
 
 const BurgerConstructorList: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -18,7 +18,7 @@ const BurgerConstructorList: React.FC = () => {
 
   const [, dropRef] = useDrop({
     accept: "ingredient",
-    drop: (ingredient: BurgerIngredient) => {
+    drop: (ingredient: IBurgerIngredient) => {
       dispatch(addIngredient(ingredient));
     },
   });

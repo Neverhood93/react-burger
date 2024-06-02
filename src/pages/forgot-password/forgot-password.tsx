@@ -6,7 +6,7 @@ import { Link, Navigate } from "react-router-dom";
 import React, { FormEvent } from "react";
 import styles from "../common/form.module.css";
 import { useForm } from "../../hooks/useForm";
-import { ForgotPasswordRequest } from "../../types/types";
+import { IForgotPasswordRequest } from "../../types/types";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import {
   getAuthError,
@@ -20,7 +20,7 @@ import Modal from "../../components/modal/modal";
 import Preloader from "../../components/common/preloader/preloader";
 
 function ForgotPasswordPage() {
-  const { formState, handleFieldChange } = useForm<ForgotPasswordRequest>({
+  const { formState, handleFieldChange } = useForm<IForgotPasswordRequest>({
     email: "",
   });
 

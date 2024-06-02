@@ -3,12 +3,12 @@ import { useAppSelector } from "../../services/hooks";
 import { getAuthLoading, getCurrentUser } from "../../services/auth/selectors";
 import { Navigate, useLocation } from "react-router-dom";
 import Preloader from "../common/preloader/preloader";
-import { ProtectedRouteProps } from "../../types/types";
+import { IProtectedRoute } from "../../types/types";
 
-const ProtectedRoute: React.FC<ProtectedRouteProps> = ({
+const ProtectedRoute: React.FC<IProtectedRoute> = ({
   onlyUnAuth = false,
   component,
-}: ProtectedRouteProps): React.ReactElement | null => {
+}: IProtectedRoute): React.ReactElement | null => {
   const isAuthLoading = useAppSelector(getAuthLoading);
   const user = useAppSelector(getCurrentUser);
   const location = useLocation();

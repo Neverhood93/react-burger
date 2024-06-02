@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./order-details.module.css";
 import checkMark from "../../images/check-mark.png";
-import { OrderDetailsProps } from "../../types/types";
+import { IOrderDetails } from "../../types/types";
 
-const OrderDetails: React.FC<OrderDetailsProps> = ({ orderNumber }) => {
+const OrderDetails: React.FC<IOrderDetails> = ({ orderNumber }) => {
   return (
     <div className={styles.details}>
       <p className="text text_type_digits-large">{orderNumber}</p>
