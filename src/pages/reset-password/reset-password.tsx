@@ -46,7 +46,7 @@ function ResetPasswordPage() {
     dispatch(closeAuthModal());
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(resetPassword(formState));
   };

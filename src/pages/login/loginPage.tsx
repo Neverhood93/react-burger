@@ -34,7 +34,7 @@ function LoginPage() {
     dispatch(closeAuthModal());
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(login(formState));
   };
