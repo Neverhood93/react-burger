@@ -1,14 +1,14 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import {
-  CommonResponse,
-  EditUserRequest,
-  ForgotPasswordRequest,
-  LoginRequest,
-  LoginResponse,
-  RefreshTokenResponse,
-  RegisterRequest,
-  ResetPasswordRequest,
-  UserResponse,
+  ICommonResponse,
+  IEditUserRequest,
+  IForgotPasswordRequest,
+  ILoginRequest,
+  ILoginResponse,
+  IRefreshTokenResponse,
+  IRegisterRequest,
+  IResetPasswordRequest,
+  IUserResponse,
 } from "../../types/types";
 import {
   editUserEndpoint,
@@ -22,33 +22,33 @@ import {
 } from "../../utils/auth-api";
 import { AppDispatch } from "../store";
 
-export const register = createAsyncThunk<LoginResponse, RegisterRequest>(
+export const register = createAsyncThunk<ILoginResponse, IRegisterRequest>(
   "auth/register",
   registerEndpoint,
 );
 
-export const login = createAsyncThunk<LoginResponse, LoginRequest>(
+export const login = createAsyncThunk<ILoginResponse, ILoginRequest>(
   "auth/login",
   loginEndpoint,
 );
 
-export const logout = createAsyncThunk<CommonResponse, string>(
+export const logout = createAsyncThunk<ICommonResponse, string>(
   "auth/logout",
   logoutEndpoint,
 );
 
 export const forgotPassword = createAsyncThunk<
-  CommonResponse,
-  ForgotPasswordRequest
+  ICommonResponse,
+  IForgotPasswordRequest
 >("auth/forgotPassword", forgotPasswordEndpoint);
 
 export const resetPassword = createAsyncThunk<
-  CommonResponse,
-  ResetPasswordRequest
+  ICommonResponse,
+  IResetPasswordRequest
 >("auth/resetPassword", resetPasswordEndpoint);
 
 export const getUser = createAsyncThunk<
-  UserResponse,
+  IUserResponse,
   string,
   { dispatch: AppDispatch }
 >("auth/getUser", async (accessToken, { dispatch }) => {
@@ -66,12 +66,12 @@ export const getUser = createAsyncThunk<
   }
 });
 
-export const editUser = createAsyncThunk<UserResponse, EditUserRequest>(
+export const editUser = createAsyncThunk<IUserResponse, IEditUserRequest>(
   "auth/editUser",
   editUserEndpoint,
 );
 
-export const refreshToken = createAsyncThunk<RefreshTokenResponse, string>(
+export const refreshToken = createAsyncThunk<IRefreshTokenResponse, string>(
   "auth/refreshToken",
   refreshTokenEndpoint,
 );

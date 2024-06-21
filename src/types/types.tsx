@@ -1,6 +1,6 @@
-import React from "react";
+import { ReactNode } from "react";
 
-export interface BurgerIngredient {
+export interface IBurgerIngredient {
   _id: string;
   name: string;
   type: string;
@@ -15,44 +15,24 @@ export interface BurgerIngredient {
   __v: number;
 }
 
-export interface SelectedBurgerIngredient {
-  _id: string;
-  name: string;
-  type: string;
-  proteins: number;
-  fat: number;
-  carbohydrates: number;
-  calories: number;
-  price: number;
-  image: string;
-  image_mobile: string;
-  image_large: string;
-  __v: number;
+export interface ISelectedBurgerIngredient extends IBurgerIngredient {
   uniqueId: string;
 }
 
-export interface IngredientDetailsProps {
-  ingredient: BurgerIngredient;
+export interface ISelectedBurgerIngredients {
+  data: ISelectedBurgerIngredient[];
 }
 
-export interface BurgerIngredientsProps {
-  data: BurgerIngredient[];
-}
-
-export interface SelectedBurgerIngredientsProps {
-  data: SelectedBurgerIngredient[];
-}
-
-export interface BurgerIngredientsListProps {
-  data: BurgerIngredient[];
+export interface IBurgerIngredientsList {
+  data: IBurgerIngredient[];
   type: string;
 }
 
-export interface OrderDetailsProps {
+export interface IOrderDetails {
   orderNumber: number;
 }
 
-export interface BurgerConstructorListItemProps {
+export interface IBurgerConstructorListItem {
   type?: "top" | "bottom" | undefined;
   isLocked?: boolean;
   text: string;
@@ -61,12 +41,12 @@ export interface BurgerConstructorListItemProps {
   uniqueId: string;
 }
 
-export interface BurgerIngredientsTabPanelProps {
+export interface IBurgerIngredientsTabPanel {
   currentTab: string;
   setCurrentTab: (tab: string) => void;
 }
 
-export interface DraggableIngredientProps {
+export interface IDraggableIngredient {
   id: string;
   text: string;
   price: number;
@@ -74,12 +54,12 @@ export interface DraggableIngredientProps {
   index: number;
 }
 
-export interface DragItem {
+export interface IDragItem {
   id: string;
   index: number;
 }
 
-export interface OrderResponse {
+export interface IOrderResponse {
   name: string;
   order: {
     number: number;
@@ -87,64 +67,64 @@ export interface OrderResponse {
   success: boolean;
 }
 
-export interface IngredientsApiResponse {
-  data: BurgerIngredient[];
+export interface IIngredientsApiResponse {
+  data: IBurgerIngredient[];
 }
 
-export interface RegisterRequest {
+export interface IRegisterRequest {
   email: string;
   password: string;
   name: string;
 }
 
-export interface LoginRequest {
+export interface ILoginRequest {
   email: string;
   password: string;
 }
 
-export interface LoginResponse {
+export interface ILoginResponse {
   success: boolean;
-  user: User;
+  user: IUser;
   accessToken: string;
   refreshToken: string;
 }
 
-export interface ForgotPasswordRequest {
+export interface IForgotPasswordRequest {
   email: string;
 }
 
-export interface User {
+export interface IUser {
   email: string;
   name: string;
 }
 
-export interface CommonResponse {
+export interface ICommonResponse {
   success: boolean;
   message: string;
 }
 
-export interface ResetPasswordRequest {
+export interface IResetPasswordRequest {
   password: string;
   token: string;
 }
 
-export interface UserResponse {
+export interface IUserResponse {
   success: boolean;
-  user: User;
+  user: IUser;
 }
 
-export interface EditUserRequest {
-  registerRequestData: RegisterRequest;
+export interface IEditUserRequest {
+  registerRequestData: IRegisterRequest;
   accessToken: string;
 }
 
-export interface RefreshTokenResponse {
+export interface IRefreshTokenResponse {
   success: boolean;
   accessToken: string;
   refreshToken: string;
 }
 
-export interface ProtectedRouteProps {
+export interface IProtectedRoute {
   onlyUnAuth?: boolean;
-  component: React.ReactNode;
+  component: ReactNode;
 }

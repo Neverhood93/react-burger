@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createOrder } from "./actions";
-import { OrderResponse } from "../../types/types";
+import { IOrderResponse } from "../../types/types";
 
 interface OrderState {
-  currentOrder: OrderResponse | null;
+  currentOrder: IOrderResponse | null;
   orderLoading: boolean;
   orderError: string | null;
   isOrderDetailModalOpen: boolean;

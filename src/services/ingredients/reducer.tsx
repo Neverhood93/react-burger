@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loadIngredients } from "./actions";
-import { BurgerIngredient } from "../../types/types";
+import { IBurgerIngredient } from "../../types/types";
 
 interface IngredientsState {
-  ingredients: BurgerIngredient[];
+  ingredients: IBurgerIngredient[];
   ingredientsLoading: boolean;
   ingredientsError: string | null;
 }

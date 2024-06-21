@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "./burger-constructor-unlock-list.module.css";
-import { SelectedBurgerIngredientsProps } from "../../../../types/types";
+import { ISelectedBurgerIngredients } from "../../../../types/types";
 import DraggableIngredient from "./draggable-ingredient";
 
-const BurgerConstructorUnlockList: React.FC<SelectedBurgerIngredientsProps> = ({
+const BurgerConstructorUnlockList: React.FC<ISelectedBurgerIngredients> = ({
   data,
 }) => {
   return (

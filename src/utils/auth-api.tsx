@@ -1,13 +1,13 @@
 import {
-  CommonResponse,
-  UserResponse,
-  LoginRequest,
-  LoginResponse,
-  RefreshTokenResponse,
-  RegisterRequest,
-  ResetPasswordRequest,
-  EditUserRequest,
-  ForgotPasswordRequest,
+  ICommonResponse,
+  IUserResponse,
+  ILoginRequest,
+  ILoginResponse,
+  IRefreshTokenResponse,
+  IRegisterRequest,
+  IResetPasswordRequest,
+  IEditUserRequest,
+  IForgotPasswordRequest,
 } from "../types/types";
 import { baseApiConfig } from "./api-config";
 import getResponse from "./api-utils";
@@ -22,9 +22,9 @@ async function request<TResponse>(
 }
 
 export const registerEndpoint = async (
-  requestData: RegisterRequest,
-): Promise<LoginResponse> => {
-  return await request<LoginResponse>("/auth/register", {
+  requestData: IRegisterRequest,
+): Promise<ILoginResponse> => {
+  return await request<ILoginResponse>("/auth/register", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify(requestData),
@@ -32,9 +32,9 @@ export const registerEndpoint = async (
 };
 
 export const loginEndpoint = async (
-  requestData: LoginRequest,
-): Promise<LoginResponse> => {
-  return await request<LoginResponse>("/auth/login", {
+  requestData: ILoginRequest,
+): Promise<ILoginResponse> => {
+  return await request<ILoginResponse>("/auth/login", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify(requestData),
@@ -43,8 +43,8 @@ export const loginEndpoint = async (
 
 export const logoutEndpoint = async (
   token: string,
-): Promise<CommonResponse> => {
-  return await request<CommonResponse>("/auth/logout", {
+): Promise<ICommonResponse> => {
+  return await request<ICommonResponse>("/auth/logout", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify({ token }),
@@ -52,9 +52,9 @@ export const logoutEndpoint = async (
 };
 
 export const forgotPasswordEndpoint = async (
-  requestData: ForgotPasswordRequest,
-): Promise<CommonResponse> => {
-  return await request<CommonResponse>("/password-reset", {
+  requestData: IForgotPasswordRequest,
+): Promise<ICommonResponse> => {
+  return await request<ICommonResponse>("/password-reset", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify(requestData),
@@ -62,9 +62,9 @@ export const forgotPasswordEndpoint = async (
 };
 
 export const resetPasswordEndpoint = async (
-  requestData: ResetPasswordRequest,
-): Promise<CommonResponse> => {
-  return await request<CommonResponse>("/password-reset/reset", {
+  requestData: IResetPasswordRequest,
+): Promise<ICommonResponse> => {
+  return await request<ICommonResponse>("/password-reset/reset", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify(requestData),
@@ -73,8 +73,8 @@ export const resetPasswordEndpoint = async (
 
 export const getUserEndpoint = async (
   accessToken: string,
-): Promise<UserResponse> => {
-  return await request<UserResponse>("/auth/user", {
+): Promise<IUserResponse> => {
+  return await request<IUserResponse>("/auth/user", {
     method: "GET",
     headers: {
       ...baseApiConfig.headers,
@@ -84,9 +84,9 @@ export const getUserEndpoint = async (
 };
 
 export const editUserEndpoint = async (
-  requestData: EditUserRequest,
-): Promise<UserResponse> => {
-  return await request<UserResponse>("/auth/user", {
+  requestData: IEditUserRequest,
+): Promise<IUserResponse> => {
+  return await request<IUserResponse>("/auth/user", {
     method: "PATCH",
     headers: {
       ...baseApiConfig.headers,
@@ -98,8 +98,8 @@ export const editUserEndpoint = async (
 
 export const refreshTokenEndpoint = async (
   refreshToken: string,
-): Promise<RefreshTokenResponse> => {
-  return await request<RefreshTokenResponse>("/auth/token", {
+): Promise<IRefreshTokenResponse> => {
+  return await request<IRefreshTokenResponse>("/auth/token", {
     method: "POST",
     headers: baseApiConfig.headers,
     body: JSON.stringify({ token: refreshToken }),

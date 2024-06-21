@@ -1,9 +1,9 @@
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import React from "react";
 import styles from "./burger-ingredients-tab-panel.module.css";
-import { BurgerIngredientsTabPanelProps } from "../../../types/types";
+import { IBurgerIngredientsTabPanel } from "../../../types/types";
 
-const BurgerIngredientsTabPanel: React.FC<BurgerIngredientsTabPanelProps> = ({
+const BurgerIngredientsTabPanel: React.FC<IBurgerIngredientsTabPanel> = ({
   currentTab,
   setCurrentTab,
 }) => {

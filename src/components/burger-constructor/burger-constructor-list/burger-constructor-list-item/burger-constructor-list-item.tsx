@@ -3,12 +3,12 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { BurgerConstructorListItemProps } from "../../../../types/types";
+import { IBurgerConstructorListItem } from "../../../../types/types";
 import { useAppDispatch } from "../../../../services/hooks";
 import { removeIngredient } from "../../../../services/burger-constructor/reducer";
 import styles from "./burger-constructor-list-item.module.css";
 
-const BurgerConstructorListItem: React.FC<BurgerConstructorListItemProps> = ({
+const BurgerConstructorListItem: React.FC<IBurgerConstructorListItem> = ({
   text,
   price,
   thumbnail,

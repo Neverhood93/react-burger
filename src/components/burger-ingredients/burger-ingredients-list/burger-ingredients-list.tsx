@@ -1,9 +1,9 @@
 import React, { useMemo } from "react";
 import styles from "./burger-ingredients-list.module.css";
 import BurgerIngredientsItem from "./burger-ingredients-item/burger-ingredients-item";
-import { BurgerIngredientsListProps } from "../../../types/types";
+import { IBurgerIngredientsList } from "../../../types/types";
 
-const BurgerIngredientsList: React.FC<BurgerIngredientsListProps> = ({
+const BurgerIngredientsList: React.FC<IBurgerIngredientsList> = ({
   data,
   type,
 }) => {

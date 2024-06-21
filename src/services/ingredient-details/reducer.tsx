@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { BurgerIngredient } from "../../types/types";
+import { IBurgerIngredient } from "../../types/types";
 
 interface IngredientModalState {
-  selectedIngredient: BurgerIngredient | null;
+  selectedIngredient: IBurgerIngredient | null;
 }
 
 const initialState: IngredientModalState = {
@@ -13,7 +13,7 @@ export const ingredientDetailsSlice = createSlice({
   name: "ingredientModal",
   initialState,
   reducers: {
-    openIngredientModal: (state, action: PayloadAction<BurgerIngredient>) => {
+    openIngredientModal: (state, action: PayloadAction<IBurgerIngredient>) => {
       state.selectedIngredient = action.payload;
     },
     closeIngredientModal: (state) => {

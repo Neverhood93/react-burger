@@ -7,7 +7,7 @@ import {
 import React, { FormEvent, useMemo } from "react";
 import ProfileNavBar from "./profile-nav-bar";
 import { useForm } from "../../hooks/useForm";
-import { RegisterRequest } from "../../types/types";
+import { IRegisterRequest } from "../../types/types";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import {
   getAuthError,
@@ -26,7 +26,7 @@ function ProfilePage() {
   const initPassword = "";
 
   const { formState, handleFieldChange, setFormState } =
-    useForm<RegisterRequest>({
+    useForm<IRegisterRequest>({
       name: initName,
       email: initEmail,
       password: initPassword,
@@ -58,7 +58,7 @@ function ProfilePage() {
     dispatch(closeAuthModal());
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch(
       editUser({

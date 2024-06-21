@@ -1,10 +1,13 @@
-import { BurgerIngredient, SelectedBurgerIngredient } from "../../types/types";
+import {
+  IBurgerIngredient,
+  ISelectedBurgerIngredient,
+} from "../../types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { v4 as uuidv4 } from "uuid";
 
 interface SelectedIngredientsState {
-  bun: SelectedBurgerIngredient | null;
-  ingredients: SelectedBurgerIngredient[];
+  bun: ISelectedBurgerIngredient | null;
+  ingredients: ISelectedBurgerIngredient[];
 }
 
 const initialState: SelectedIngredientsState = {
@@ -17,7 +20,7 @@ export const selectedIngredientsSlice = createSlice({
   initialState,
   reducers: {
     addIngredient: {
-      reducer(state, action: PayloadAction<SelectedBurgerIngredient>) {
+      reducer(state, action: PayloadAction<ISelectedBurgerIngredient>) {
         const ingredient = action.payload;
         if (ingredient.type === "bun") {
           state.bun = ingredient;
@@ -25,12 +28,12 @@ export const selectedIngredientsSlice = createSlice({
           state.ingredients.push(ingredient);
         }
       },
-      prepare(ingredient: BurgerIngredient) {
+      prepare(ingredient: IBurgerIngredient) {
         return {
           payload: {
             ...ingredient,
             uniqueId: uuidv4(),
-          } as SelectedBurgerIngredient,
+          } as ISelectedBurgerIngredient,
         };
       },
     },
