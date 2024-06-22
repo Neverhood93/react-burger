@@ -23,20 +23,20 @@ export const feedSlice = createSlice({
   name: "feed",
   initialState,
   reducers: {
-    wsConnecting: (state) => {
+    wsFeedConnecting: (state) => {
       state.status = WebsocketStatus.CONNECTING;
     },
-    wsOpen: (state) => {
+    wsFeedOpen: (state) => {
       state.status = WebsocketStatus.ONLINE;
       state.connectionError = null;
     },
-    wsClose: (state) => {
+    wsFeedClose: (state) => {
       state.status = WebsocketStatus.OFFLINE;
     },
-    wsError: (state, action: PayloadAction<string>) => {
+    wsFeedError: (state, action: PayloadAction<string>) => {
       state.connectionError = action.payload;
     },
-    wsMessage: (state, action: PayloadAction<IOrderResponse>) => {
+    wsFeedMessage: (state, action: PayloadAction<IOrderResponse>) => {
       state.success = action.payload.success;
       state.orders = action.payload.orders;
       state.total = action.payload.total;
@@ -45,5 +45,10 @@ export const feedSlice = createSlice({
   },
 });
 
-export const { wsConnecting, wsOpen, wsClose, wsError, wsMessage } =
-  feedSlice.actions;
+export const {
+  wsFeedConnecting,
+  wsFeedOpen,
+  wsFeedClose,
+  wsFeedError,
+  wsFeedMessage,
+} = feedSlice.actions;

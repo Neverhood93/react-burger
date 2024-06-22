@@ -2,22 +2,22 @@ import { configureStore } from "@reduxjs/toolkit";
 import { rootReducer } from "./reducer";
 import { socketMiddleware } from "./middleware/socket-middleware";
 import {
-  wsClose,
-  wsConnecting,
-  wsError,
-  wsMessage,
-  wsOpen,
+  wsFeedClose,
+  wsFeedConnecting,
+  wsFeedError,
+  wsFeedMessage,
+  wsFeedOpen,
 } from "./feed/reducer";
 import { wsFeedConnect, wsFeedDisconnect } from "./feed/action";
 
 const feedMiddleware = socketMiddleware({
   connect: wsFeedConnect,
   disconnect: wsFeedDisconnect,
-  onConnecting: wsConnecting,
-  onOpen: wsOpen,
-  onClose: wsClose,
-  onError: wsError,
-  onMessage: wsMessage,
+  onConnecting: wsFeedConnecting,
+  onOpen: wsFeedOpen,
+  onClose: wsFeedClose,
+  onError: wsFeedError,
+  onMessage: wsFeedMessage,
 });
 
 export const store = configureStore({
