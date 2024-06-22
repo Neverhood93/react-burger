@@ -19,7 +19,7 @@ import {
 import { loadIngredients } from "../../services/ingredients/actions";
 import Preloader from "../common/preloader/preloader";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import OrdersPage from "../../pages/orders/orders";
+import FeedOrdersPage from "../../pages/feed-orders/feed-orders";
 import { AuthRoute, UnAuthRoute } from "../protected-route/protected-route";
 import { checkUserAuth } from "../../services/auth/action";
 
@@ -79,7 +79,7 @@ function App() {
         />
         <Route
           path="/orders"
-          element={<AuthRoute component={<OrdersPage />} />}
+          element={<AuthRoute component={<FeedOrdersPage />} />}
         />
 
         <Route path="*" element={<NotFoundPage />} />

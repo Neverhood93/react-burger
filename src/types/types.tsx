@@ -128,3 +128,31 @@ export interface IProtectedRoute {
   onlyUnAuth?: boolean;
   component: ReactNode;
 }
+
+export enum WebsocketStatus {
+  CONNECTING = "CONNECTING...",
+  ONLINE = "ONLINE",
+  OFFLINE = "OFFLINE",
+}
+
+export enum OrderStatus {
+  CREATED = "created",
+  PENDING = "pending",
+  DONE = "DONE",
+}
+
+export interface IOrder {
+  _id: string;
+  number: number;
+  ingredients: Array<number>;
+  status: OrderStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IOrderResponse {
+  success: boolean;
+  orders: IOrder[];
+  total: number;
+  totalToday: number;
+}
