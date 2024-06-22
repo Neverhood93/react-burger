@@ -55,6 +55,7 @@ function App() {
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
         <Route path="/ingredients/:id" element={<IngredientDetailsPage />} />
+        <Route path="/feed" element={<FeedOrdersPage />} />
 
         <Route
           path="/login"
@@ -76,10 +77,6 @@ function App() {
         <Route
           path="/profile"
           element={<AuthRoute component={<ProfilePage />} />}
-        />
-        <Route
-          path="/orders"
-          element={<AuthRoute component={<FeedOrdersPage />} />}
         />
 
         <Route path="*" element={<NotFoundPage />} />
