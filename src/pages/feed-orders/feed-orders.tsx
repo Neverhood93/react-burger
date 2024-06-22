@@ -5,7 +5,10 @@ import {
   getFeedWebsocketStatus,
 } from "../../services/feed/selectors";
 import { wsFeedConnect, wsFeedDisconnect } from "../../services/feed/action";
-import { useEffect } from "react";
+import React, { useEffect } from "react";
+import OrderList from "../../components/order-list/order-list";
+import OrderDashboard from "../../components/order-dashboard/order-dashboard";
+import styles from "./feed-orders.module.css";
 
 export const LIVE_TABLE_SERVER_URL =
   "wss://norma.nomoreparties.space/orders/all";
@@ -25,11 +28,11 @@ function FeedOrdersPage() {
   }, [dispatch]);
 
   return (
-    <div>
-      <p>
-        Connection status: <span>{status}</span>
-      </p>
-      <div></div>
+    <div className={styles.content}>
+      <main className={styles.main}>
+        <OrderList />
+        <OrderDashboard />
+      </main>
     </div>
   );
 }
