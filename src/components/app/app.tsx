@@ -105,19 +105,17 @@ function App() {
           <Route
             path="/feed/:number"
             element={
-              <Modal
-                title="/feed/:number"
-                onClose={handleCloseModalClick}
-              ></Modal>
+              <Modal title="" onClose={handleCloseModalClick}>
+                <OrderDetails />
+              </Modal>
             }
           />
           <Route
             path="/profile/orders/:number"
             element={
-              <Modal
-                title="/profile/orders/:number"
-                onClose={handleCloseModalClick}
-              ></Modal>
+              <Modal title="" onClose={handleCloseModalClick}>
+                <OrderDetails />
+              </Modal>
             }
           />
         </Routes>

@@ -9,7 +9,6 @@ export const createOrder = createAsyncThunk<IOrderResponse, string[]>(
   },
 );
 
-// TODO: Добавить проверку на то, что уже есть заказ в store
 export const fetchOrder = createAsyncThunk<IGetOrderResponse, number>(
   "orders/getOrder",
   async (orderNumber) => {
