@@ -159,4 +159,10 @@ export interface IOrderResponse {
 
 export interface IOrderList {
   data: IOrder[];
+  isProfile: boolean;
+}
+
+export interface IGetOrderResponse {
+  success: boolean;
+  orders: IOrder[];
 }

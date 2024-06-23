@@ -23,6 +23,7 @@ import FeedOrdersPage from "../../pages/feed-orders/feed-orders";
 import { AuthRoute, UnAuthRoute } from "../protected-route/protected-route";
 import { checkUserAuth } from "../../services/auth/action";
 import ProfileOrdersPage from "../../pages/profile-orders/profile-orders";
+import OrderDetails from "../order-details/order-details";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -39,7 +40,7 @@ function App() {
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
-  const handleCloseIngredientClick = () => {
+  const handleCloseModalClick = () => {
     navigate(-1);
   };
 
@@ -57,6 +58,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/ingredients/:id" element={<IngredientDetailsPage />} />
         <Route path="/feed" element={<FeedOrdersPage />} />
+        <Route path="/feed/:number" element={<OrderDetails />} />
 
         <Route
           path="/login"
@@ -82,6 +84,10 @@ function App() {
           path="/profile/orders"
           element={<AuthRoute component={<ProfileOrdersPage />} />}
         />
+        <Route
+          path="/profile/orders/:number"
+          element={<AuthRoute component={<OrderDetails />} />}
+        />
 
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
@@ -91,12 +97,27 @@ function App() {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal
-                title="Детали ингредиента"
-                onClose={handleCloseIngredientClick}
-              >
+              <Modal title="Детали ингредиента" onClose={handleCloseModalClick}>
                 <IngredientDetails />
               </Modal>
+            }
+          />
+          <Route
+            path="/feed/:number"
+            element={
+              <Modal
+                title="/feed/:number"
+                onClose={handleCloseModalClick}
+              ></Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:number"
+            element={
+              <Modal
+                title="/profile/orders/:number"
+                onClose={handleCloseModalClick}
+              ></Modal>
             }
           />
         </Routes>

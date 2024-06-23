@@ -29,7 +29,7 @@ function FeedOrdersPage() {
   return (
     <div className={styles.content}>
       <main className={styles.main}>
-        <OrderList data={orders} />
+        <OrderList data={orders} isProfile={false} />
         <OrderDashboard />
       </main>
     </div>

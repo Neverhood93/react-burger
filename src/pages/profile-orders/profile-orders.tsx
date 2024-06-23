@@ -36,7 +36,7 @@ function ProfileOrdersPage() {
         <ProfileNavBar />
       </div>
       <div className={styles.container_col_orders}>
-        <OrderList data={orders} />
+        <OrderList data={orders} isProfile={true} />
       </div>
     </main>
   );
