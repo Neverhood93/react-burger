@@ -10,17 +10,16 @@ import OrderList from "../../components/order-list/order-list";
 import OrderDashboard from "../../components/order-dashboard/order-dashboard";
 import styles from "./feed-orders.module.css";
 
-export const LIVE_TABLE_SERVER_URL =
-  "wss://norma.nomoreparties.space/orders/all";
-
 function FeedOrdersPage() {
+  const FEED_SERVER_URL = "wss://norma.nomoreparties.space/orders/all";
+
   const dispatch = useAppDispatch();
   const orders = useAppSelector(getFeedOrders);
   const status = useAppSelector(getFeedWebsocketStatus);
   const isDisconnected = status !== WebsocketStatus.ONLINE;
 
   useEffect(() => {
-    dispatch(wsFeedConnect(LIVE_TABLE_SERVER_URL));
+    dispatch(wsFeedConnect(FEED_SERVER_URL));
 
     return () => {
       dispatch(wsFeedDisconnect());
@@ -30,7 +29,7 @@ function FeedOrdersPage() {
   return (
     <div className={styles.content}>
       <main className={styles.main}>
-        <OrderList />
+        <OrderList data={orders} />
         <OrderDashboard />
       </main>
     </div>

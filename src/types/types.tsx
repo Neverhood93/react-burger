@@ -156,3 +156,7 @@ export interface IOrderResponse {
   total: number;
   totalToday: number;
 }
+
+export interface IOrderList {
+  data: IOrder[];
+}
