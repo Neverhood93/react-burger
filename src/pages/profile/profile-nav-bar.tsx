@@ -1,5 +1,5 @@
 import styles from "./profile.module.css";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { logout } from "../../services/auth/action";
 import { useAppDispatch } from "../../services/hooks";
 
@@ -15,20 +15,25 @@ function ProfileNavBar() {
     <nav className={`${styles.nav}`}>
       <ul className={styles.list}>
         <li className={styles.item}>
-          <Link
-            className={`${styles.link_active} text text_type_main-medium text_color_inactive`}
-            to={"/profile"}
+          <NavLink
+            to="/profile"
+            end
+            className={({ isActive }) =>
+              `text text_type_main-medium ${isActive ? styles.link_active : styles.link_inactive}`
+            }
           >
             Профиль
-          </Link>
+          </NavLink>
         </li>
         <li className={styles.item}>
-          <Link
-            className={`${styles.link_inactive} text text_type_main-medium text_color_inactive`}
-            to={"/orders"}
+          <NavLink
+            to="/profile/orders"
+            className={({ isActive }) =>
+              `text text_type_main-medium ${isActive ? styles.link_active : styles.link_inactive}`
+            }
           >
             История заказов
-          </Link>
+          </NavLink>
         </li>
         <li className={styles.item}>
           <p

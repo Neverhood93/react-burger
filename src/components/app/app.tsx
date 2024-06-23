@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import AppHeader from "../app-header/app-header";
-import HomePage from "../../pages/home/homePage";
+import HomePage from "../../pages/home/home";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import LoginPage from "../../pages/login/loginPage";
-import RegisterPage from "../../pages/register/registerPage";
+import LoginPage from "../../pages/login/login";
+import RegisterPage from "../../pages/register/register";
 import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile/profile";
@@ -22,6 +22,7 @@ import IngredientDetails from "../ingredient-details/ingredient-details";
 import FeedOrdersPage from "../../pages/feed-orders/feed-orders";
 import { AuthRoute, UnAuthRoute } from "../protected-route/protected-route";
 import { checkUserAuth } from "../../services/auth/action";
+import ProfileOrdersPage from "../../pages/profile-orders/profile-orders";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -73,10 +74,13 @@ function App() {
           path="/reset-password"
           element={<UnAuthRoute component={<ResetPasswordPage />} />}
         />
-
         <Route
           path="/profile"
           element={<AuthRoute component={<ProfilePage />} />}
+        />
+        <Route
+          path="/profile/orders"
+          element={<AuthRoute component={<ProfileOrdersPage />} />}
         />
 
         <Route path="*" element={<NotFoundPage />} />
