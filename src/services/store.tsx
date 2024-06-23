@@ -9,6 +9,17 @@ import {
   wsFeedOpen,
 } from "./feed/reducer";
 import { wsFeedConnect, wsFeedDisconnect } from "./feed/action";
+import {
+  wsProfileOrdersClose,
+  wsProfileOrdersConnecting,
+  wsProfileOrdersError,
+  wsProfileOrdersMessage,
+  wsProfileOrdersOpen,
+} from "./profile-orders/reducer";
+import {
+  wsProfileOrdersConnect,
+  wsProfileOrdersDisconnect,
+} from "./profile-orders/actions";
 
 const feedMiddleware = socketMiddleware({
   connect: wsFeedConnect,
@@ -20,10 +31,23 @@ const feedMiddleware = socketMiddleware({
   onMessage: wsFeedMessage,
 });
 
+const profileOrdersMiddleware = socketMiddleware({
+  connect: wsProfileOrdersConnect,
+  disconnect: wsProfileOrdersDisconnect,
+  onConnecting: wsProfileOrdersConnecting,
+  onOpen: wsProfileOrdersOpen,
+  onClose: wsProfileOrdersClose,
+  onError: wsProfileOrdersError,
+  onMessage: wsProfileOrdersMessage,
+});
+
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDefaultMiddleware) => {
-    return getDefaultMiddleware().concat(feedMiddleware);
+    return getDefaultMiddleware().concat(
+      feedMiddleware,
+      profileOrdersMiddleware,
+    );
   },
 });
 
