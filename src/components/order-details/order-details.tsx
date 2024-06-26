@@ -12,6 +12,12 @@ import {
 } from "../../services/order/selectors";
 import { fetchOrder } from "../../services/order/actions";
 import Preloader from "../common/preloader/preloader";
+import styles from "./order-details.module.css";
+import IngredientList from "../ingredient-list/ingredient-list";
+import {
+  CurrencyIcon,
+  FormattedDate,
+} from "@ya.praktikum/react-developer-burger-ui-components";
 
 const OrderDetails: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -77,7 +83,48 @@ const OrderDetails: React.FC = () => {
     return <NotFoundPage />;
   }
 
-  return <div>{order.number}</div>;
+  return (
+    <div className={styles.details_container}>
+      <div className={styles.details}>
+        <div className={styles.order_number_container}>
+          <span
+            className={`text text_type_digits-medium mb-10 ${styles.order_number}`}
+          >
+            #{order.number}
+          </span>
+        </div>
+        <p className="text text_type_main-medium mb-3">{order.name}</p>
+
+        <p
+          className={
+            order.status === "done"
+              ? `text text_type_main-medium ${styles.order_status_done}`
+              : `text text_type_main-medium ${styles.order_status}`
+          }
+        >
+          {order.status === "created"
+            ? "Создан"
+            : order.status === "pending"
+              ? "Готовится"
+              : "Вополнен"}
+        </p>
+
+        <p className="text text_type_main-medium mb-6">Состав:</p>
+
+        <IngredientList />
+
+        <div className={styles.bottom_container}>
+          <p className="text text_type_main-default text_color_inactive">
+            <FormattedDate date={new Date(order.createdAt)} />
+          </p>
+          <div className={styles.total_price_container}>
+            <span className="text text_type_digits-default mr-2">{123}</span>
+            <CurrencyIcon type="primary" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default OrderDetails;

@@ -1,0 +1,9 @@
+.column {
+    width: 580px;
+    display: flex;
+    flex-direction: column;
+    min-height: 300px;
+    max-height: calc(100vh - 570px);
+    overflow-y: auto;
+    padding-right: 24px;
+}

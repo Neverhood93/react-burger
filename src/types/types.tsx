@@ -138,12 +138,13 @@ export enum WebsocketStatus {
 export enum OrderStatus {
   CREATED = "created",
   PENDING = "pending",
-  DONE = "DONE",
+  DONE = "done",
 }
 
 export interface IOrder {
   _id: string;
   number: number;
+  name: string;
   ingredients: Array<number>;
   status: OrderStatus;
   createdAt: string;
