@@ -1,5 +1,5 @@
-import React, { useMemo } from "react";
-import { IOrder, IBurgerIngredient } from "../../types/types";
+import React from "react";
+import { IOrder } from "../../types/types";
 import styles from "./order-card.module.css";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -7,23 +7,12 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientImgList from "../ingredient-img-list/ingredient-img-list";
-import { useAppSelector } from "../../services/hooks";
-import { getIngredients } from "../../services/ingredients/selectors";
+import { useOrderTotalPrice } from "../../utils/utils";
 
 const OrderCard: React.FC<IOrder> = ({ ...props }) => {
   const location = useLocation();
   const orderId = props.number;
-  const ingredients = useAppSelector(getIngredients);
-
-  const totalPrice = useMemo(() => {
-    return props.ingredients.reduce((acc, ingredientId) => {
-      const ingredient = ingredients.find(
-        (ingredient: IBurgerIngredient) =>
-          ingredient._id === ingredientId.toString(),
-      );
-      return ingredient ? acc + ingredient.price : acc;
-    }, 0);
-  }, [props.ingredients, ingredients]);
+  const totalPrice = useOrderTotalPrice(props.ingredients);
 
   return (
     <Link

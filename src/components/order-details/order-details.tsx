@@ -1,8 +1,8 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { useLocation, useParams } from "react-router-dom";
 import NotFoundPage from "../../pages/not-found/not-found";
-import { IBurgerIngredient, IOrder } from "../../types/types";
+import { IOrder } from "../../types/types";
 import { getFeedOrders } from "../../services/feed/selectors";
 import { getProfileOrders } from "../../services/profile-orders/selectors";
 import {
@@ -18,7 +18,7 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { getIngredients } from "../../services/ingredients/selectors";
+import { useOrderTotalPrice } from "../../utils/utils";
 
 const OrderDetails: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -72,17 +72,7 @@ const OrderDetails: React.FC = () => {
     }
   }, [currentOrderResponse, orderNumber]);
 
-  const ingredients = useAppSelector(getIngredients);
-
-  const totalPrice = useMemo(() => {
-    return order?.ingredients.reduce((acc, ingredientId) => {
-      const ingredient = ingredients.find(
-        (ingredient: IBurgerIngredient) =>
-          ingredient._id === ingredientId.toString(),
-      );
-      return ingredient ? acc + ingredient.price : acc;
-    }, 0);
-  }, [order, ingredients]);
+  const totalPrice = useOrderTotalPrice(order?.ingredients || []);
 
   if (orderLoading) {
     return <Preloader />;
@@ -119,7 +109,7 @@ const OrderDetails: React.FC = () => {
             ? "Создан"
             : order.status === "pending"
               ? "Готовится"
-              : "Вополнен"}
+              : "Выполнен"}
         </p>
 
         <p className="text text_type_main-medium mb-6">Состав:</p>

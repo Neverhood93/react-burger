@@ -10,6 +10,7 @@ import OrderList from "../../components/order-list/order-list";
 import OrderDashboard from "../../components/order-dashboard/order-dashboard";
 import styles from "./feed-orders.module.css";
 import { getIngredients } from "../../services/ingredients/selectors";
+import { filterOrdersWithValidIngredients } from "../../utils/utils";
 
 function FeedOrdersPage() {
   const FEED_SERVER_URL = "wss://norma.nomoreparties.space/orders/all";
@@ -28,15 +29,7 @@ function FeedOrdersPage() {
     };
   }, [dispatch]);
 
-  const ingredientIds = new Set(
-    ingredients.map((ingredient) => ingredient._id),
-  );
-
-  const filteredOrders = orders.filter((order) =>
-    order.ingredients.every((ingredientId) =>
-      ingredientIds.has(ingredientId.toString()),
-    ),
-  );
+  const filteredOrders = filterOrdersWithValidIngredients(orders, ingredients);
 
   if (isDisconnected) {
     return <p>Ошибка: WebSocket не подключен</p>;

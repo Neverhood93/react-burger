@@ -13,6 +13,7 @@ import {
   wsProfileOrdersDisconnect,
 } from "../../services/profile-orders/actions";
 import { getIngredients } from "../../services/ingredients/selectors";
+import { filterOrdersWithValidIngredients } from "../../utils/utils";
 
 function ProfileOrdersPage() {
   const accessToken = localStorage.getItem("token") || "";
@@ -32,15 +33,7 @@ function ProfileOrdersPage() {
     };
   }, [dispatch]);
 
-  const ingredientIds = new Set(
-    ingredients.map((ingredient) => ingredient._id),
-  );
-
-  const filteredOrders = orders.filter((order) =>
-    order.ingredients.every((ingredientId) =>
-      ingredientIds.has(ingredientId.toString()),
-    ),
-  );
+  const filteredOrders = filterOrdersWithValidIngredients(orders, ingredients);
 
   if (isDisconnected) {
     return <p>Ошибка: WebSocket не подключен</p>;
