@@ -171,3 +171,19 @@ export interface IGetOrderResponse {
 export interface IOrderStatusList {
   data: IOrder[];
 }
+
+export interface IIngredientListProps {
+  ingredients: IBurgerIngredient[];
+}
+
+export interface IIngredientListItemProps {
+  ingredient: IBurgerIngredient;
+  count: number;
+}
+
+export interface IIngredientMap {
+  [key: string]: {
+    ingredient: IBurgerIngredient;
+    count: number;
+  };
+}

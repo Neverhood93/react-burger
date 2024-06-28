@@ -1,17 +1,29 @@
 import React from "react";
-import { IBurgerIngredient } from "../../types/types";
+import { IIngredientListProps, IIngredientMap } from "../../types/types";
 import IngredientListItem from "../ingredient-list-item/ingredient-list-item";
 import styles from "./ingredient-list.module.css";
 
-interface IngredientListProps {
-  ingredients: IBurgerIngredient[];
-}
+const IngredientList: React.FC<IIngredientListProps> = ({ ingredients }) => {
+  const ingredientMap: IIngredientMap = {};
 
-const IngredientList: React.FC<IngredientListProps> = ({ ingredients }) => {
+  ingredients.forEach((ingredient) => {
+    if (ingredientMap[ingredient._id]) {
+      ingredientMap[ingredient._id].count += 1;
+    } else {
+      ingredientMap[ingredient._id] = { ingredient, count: 1 };
+    }
+  });
+
+  const groupedIngredients = Object.values(ingredientMap);
+
   return (
     <div className={styles.column}>
-      {ingredients.map((item, index) => (
-        <IngredientListItem key={`${item._id}${index}`} {...item} />
+      {groupedIngredients.map(({ ingredient, count }) => (
+        <IngredientListItem
+          key={ingredient._id}
+          ingredient={ingredient}
+          count={count}
+        />
       ))}
     </div>
   );
