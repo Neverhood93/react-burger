@@ -2,8 +2,9 @@ import { useAppSelector } from "../../services/hooks";
 import { getIngredients } from "../../services/ingredients/selectors";
 import styles from "./ingredient-img-list.module.css";
 import React from "react";
+import { IOrder } from "../../types/types";
 
-function IngredientImgList() {
+const IngredientImgList: React.FC<IOrder> = ({ ...props }) => {
   const ingredients = useAppSelector(getIngredients);
   const maxVisible = 5;
   const hiddenCount = ingredients.length - maxVisible;
@@ -36,6 +37,6 @@ function IngredientImgList() {
       )}
     </div>
   );
-}
+};
 
 export default IngredientImgList;

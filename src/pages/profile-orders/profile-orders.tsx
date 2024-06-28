@@ -12,6 +12,7 @@ import {
   wsProfileOrdersConnect,
   wsProfileOrdersDisconnect,
 } from "../../services/profile-orders/actions";
+import { getIngredients } from "../../services/ingredients/selectors";
 
 function ProfileOrdersPage() {
   const accessToken = localStorage.getItem("token") || "";
@@ -19,6 +20,7 @@ function ProfileOrdersPage() {
 
   const dispatch = useAppDispatch();
   const orders = useAppSelector(getProfileOrders);
+  const ingredients = useAppSelector(getIngredients);
   const status = useAppSelector(getProfileOrdersWebsocketStatus);
   const isDisconnected = status !== WebsocketStatus.ONLINE;
 
@@ -30,13 +32,27 @@ function ProfileOrdersPage() {
     };
   }, [dispatch]);
 
+  const ingredientIds = new Set(
+    ingredients.map((ingredient) => ingredient._id),
+  );
+
+  const filteredOrders = orders.filter((order) =>
+    order.ingredients.every((ingredientId) =>
+      ingredientIds.has(ingredientId.toString()),
+    ),
+  );
+
+  if (isDisconnected) {
+    return <p>Ошибка: WebSocket не подключен</p>;
+  }
+
   return (
     <main className={styles.page}>
       <div className={styles.container_col}>
         <ProfileNavBar />
       </div>
       <div className={styles.container_col_orders}>
-        <OrderList data={orders} isProfile={true} />
+        <OrderList data={filteredOrders} isProfile={true} />
       </div>
     </main>
   );

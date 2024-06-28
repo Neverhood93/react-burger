@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { useLocation, useParams } from "react-router-dom";
 import NotFoundPage from "../../pages/not-found/not-found";
-import { IOrder } from "../../types/types";
+import { IBurgerIngredient, IOrder } from "../../types/types";
 import { getFeedOrders } from "../../services/feed/selectors";
 import { getProfileOrders } from "../../services/profile-orders/selectors";
 import {
@@ -18,6 +18,7 @@ import {
   CurrencyIcon,
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { getIngredients } from "../../services/ingredients/selectors";
 
 const OrderDetails: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -71,6 +72,18 @@ const OrderDetails: React.FC = () => {
     }
   }, [currentOrderResponse, orderNumber]);
 
+  const ingredients = useAppSelector(getIngredients);
+
+  const totalPrice = useMemo(() => {
+    return order?.ingredients.reduce((acc, ingredientId) => {
+      const ingredient = ingredients.find(
+        (ingredient: IBurgerIngredient) =>
+          ingredient._id === ingredientId.toString(),
+      );
+      return ingredient ? acc + ingredient.price : acc;
+    }, 0);
+  }, [order, ingredients]);
+
   if (orderLoading) {
     return <Preloader />;
   }
@@ -118,7 +131,9 @@ const OrderDetails: React.FC = () => {
             <FormattedDate date={new Date(order.createdAt)} />
           </p>
           <div className={styles.total_price_container}>
-            <span className="text text_type_digits-default mr-2">{123}</span>
+            <span className="text text_type_digits-default mr-2">
+              {totalPrice}
+            </span>
             <CurrencyIcon type="primary" />
           </div>
         </div>

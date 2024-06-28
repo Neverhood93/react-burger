@@ -1,5 +1,5 @@
-import React from "react";
-import { IOrder } from "../../types/types";
+import React, { useMemo } from "react";
+import { IOrder, IBurgerIngredient } from "../../types/types";
 import styles from "./order-card.module.css";
 import { Link, useLocation } from "react-router-dom";
 import {
@@ -7,10 +7,24 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import IngredientImgList from "../ingredient-img-list/ingredient-img-list";
+import { useAppSelector } from "../../services/hooks";
+import { getIngredients } from "../../services/ingredients/selectors";
 
 const OrderCard: React.FC<IOrder> = ({ ...props }) => {
   const location = useLocation();
   const orderId = props.number;
+  const ingredients = useAppSelector(getIngredients);
+
+  const totalPrice = useMemo(() => {
+    return props.ingredients.reduce((acc, ingredientId) => {
+      const ingredient = ingredients.find(
+        (ingredient: IBurgerIngredient) =>
+          ingredient._id === ingredientId.toString(),
+      );
+      return ingredient ? acc + ingredient.price : acc;
+    }, 0);
+  }, [props.ingredients, ingredients]);
+
   return (
     <Link
       to={`${location.pathname}/${orderId}`}
@@ -35,10 +49,12 @@ const OrderCard: React.FC<IOrder> = ({ ...props }) => {
           <p className="text text_type_main-medium mt-6">{props.name}</p>
 
           <div className={styles.bottom_container}>
-            <IngredientImgList />
+            <IngredientImgList {...props} />
 
             <div className={styles.total_price_container}>
-              <span className="text text_type_digits-default mr-2">{123}</span>
+              <span className="text text_type_digits-default mr-2">
+                {totalPrice}
+              </span>
               <CurrencyIcon type="primary" />
             </div>
           </div>
