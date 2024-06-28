@@ -34,6 +34,9 @@ function ProfileOrdersPage() {
   }, [dispatch]);
 
   const filteredOrders = filterOrdersWithValidIngredients(orders, ingredients);
+  const sortedOrders = filteredOrders.sort(
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+  );
 
   if (isDisconnected) {
     return <p>Ошибка: WebSocket не подключен</p>;
@@ -45,7 +48,7 @@ function ProfileOrdersPage() {
         <ProfileNavBar />
       </div>
       <div className={styles.container_col_orders}>
-        <OrderList data={filteredOrders} isProfile={true} />
+        <OrderList data={sortedOrders} isProfile={true} />
       </div>
     </main>
   );

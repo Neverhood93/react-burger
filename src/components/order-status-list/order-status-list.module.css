@@ -22,6 +22,11 @@
     margin: 0;
 }
 
-.order_number {
+.order_status {
     font-size: 28px;
+}
+
+.order_status_done {
+    font-size: 28px;
+    color: #00CCCC;
 }

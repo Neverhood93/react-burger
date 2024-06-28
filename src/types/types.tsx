@@ -170,6 +170,7 @@ export interface IGetOrderResponse {
 
 export interface IOrderStatusList {
   data: IOrder[];
+  status: OrderStatus;
 }
 
 export interface IIngredientListProps {

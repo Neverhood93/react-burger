@@ -7,6 +7,7 @@ import {
   getTotalTodayCountOrders,
 } from "../../services/feed/selectors";
 import React from "react";
+import { OrderStatus } from "../../types/types";
 
 function OrderDashboard() {
   const orders = useAppSelector(getFeedOrders);
@@ -16,8 +17,8 @@ function OrderDashboard() {
   return (
     <div className={styles.column}>
       <div className={styles.order_status_container}>
-        <OrderStatusList data={orders} />
-        <OrderStatusList data={orders} />
+        <OrderStatusList data={orders} status={OrderStatus.DONE} />
+        <OrderStatusList data={orders} status={OrderStatus.PENDING} />
       </div>
       <div className={styles.total_count_container}>
         <p className="text text_type_main-medium">Выполнено за все время:</p>
