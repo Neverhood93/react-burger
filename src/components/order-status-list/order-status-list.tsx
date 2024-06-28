@@ -16,7 +16,7 @@ const OrderStatusList: React.FC<IOrderStatusList> = ({ data }) => {
             {leftColumn.map((item) => (
               <li
                 key={item._id}
-                className={`text text_type_digits-medium ${styles.order_number}`}
+                className={`text text_type_digits-medium mb-2 ${styles.order_number}`}
               >
                 {item.number}
               </li>
@@ -28,7 +28,7 @@ const OrderStatusList: React.FC<IOrderStatusList> = ({ data }) => {
             {rightColumn.map((item) => (
               <li
                 key={item._id}
-                className={`text text_type_digits-medium ${styles.order_number}`}
+                className={`text text_type_digits-medium mb-2 ${styles.order_number}`}
               >
                 {item.number}
               </li>
