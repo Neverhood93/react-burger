@@ -167,3 +167,7 @@ export interface IGetOrderResponse {
   success: boolean;
   orders: IOrder[];
 }
+
+export interface IOrderStatusList {
+  data: IOrder[];
+}
