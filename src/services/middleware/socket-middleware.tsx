@@ -3,7 +3,8 @@ import {
   ActionCreatorWithPayload,
   Middleware,
 } from "@reduxjs/toolkit";
-import { RootState } from "../store";
+import { RootState, AppDispatch } from "../store";
+import { checkUserAuth } from "../auth/action";
 
 export type TWsActionTypes = {
   connect: ActionCreatorWithPayload<string>;
@@ -39,7 +40,7 @@ export const socketMiddleware = (
     let url = "";
 
     return (next) => (action) => {
-      const { dispatch } = store;
+      const dispatch: AppDispatch = store.dispatch;
 
       if (connect.match(action)) {
         url = action.payload;
@@ -65,7 +66,9 @@ export const socketMiddleware = (
               withTokenRefresh &&
               parsedData.message === "Invalid or missing token"
             ) {
-              console.log("Invalid or missing token");
+              dispatch(checkUserAuth());
+
+              dispatch(disconnect());
 
               return;
             }
