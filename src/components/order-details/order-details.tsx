@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { useLocation, useParams } from "react-router-dom";
 import NotFoundPage from "../../pages/not-found/not-found";
-import { IOrder } from "../../types/types";
+import { IOrder, IBurgerIngredient } from "../../types/types";
 import { getFeedOrders } from "../../services/feed/selectors";
 import { getProfileOrders } from "../../services/profile-orders/selectors";
 import {
@@ -19,6 +19,7 @@ import {
   FormattedDate,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useOrderTotalPrice } from "../../utils/utils";
+import { getIngredients } from "../../services/ingredients/selectors";
 
 const OrderDetails: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -28,6 +29,7 @@ const OrderDetails: React.FC = () => {
 
   const feedOrders = useAppSelector(getFeedOrders);
   const profileOrders = useAppSelector(getProfileOrders);
+  const allIngredients = useAppSelector(getIngredients);
   const location = useLocation();
   const { number } = useParams<{ number?: string }>();
   const orderNumber = parseInt(number || "", 10);
@@ -72,6 +74,17 @@ const OrderDetails: React.FC = () => {
     }
   }, [currentOrderResponse, orderNumber]);
 
+  const orderIngredients: IBurgerIngredient[] = order
+    ? order.ingredients
+        .map((id) =>
+          allIngredients.find((ingredient) => ingredient._id === id.toString()),
+        )
+        .filter(
+          (ingredient): ingredient is IBurgerIngredient =>
+            ingredient !== undefined,
+        )
+    : [];
+
   const totalPrice = useOrderTotalPrice(order?.ingredients || []);
 
   if (orderLoading) {
@@ -114,7 +127,7 @@ const OrderDetails: React.FC = () => {
 
         <p className="text text_type_main-medium mb-6">Состав:</p>
 
-        <IngredientList />
+        <IngredientList ingredients={orderIngredients} />
 
         <div className={styles.bottom_container}>
           <p className="text text_type_main-default text_color_inactive">

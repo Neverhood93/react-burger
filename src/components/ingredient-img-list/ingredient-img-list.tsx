@@ -2,16 +2,30 @@ import { useAppSelector } from "../../services/hooks";
 import { getIngredients } from "../../services/ingredients/selectors";
 import styles from "./ingredient-img-list.module.css";
 import React from "react";
-import { IOrder } from "../../types/types";
+import { IOrder, IBurgerIngredient } from "../../types/types";
 
-const IngredientImgList: React.FC<IOrder> = ({ ...props }) => {
+const IngredientImgList: React.FC<IOrder> = ({
+  ingredients: orderIngredients,
+}) => {
   const ingredients = useAppSelector(getIngredients);
+
+  const filteredIngredients = orderIngredients
+    .map((ingredientId) =>
+      ingredients.find(
+        (ingredient) => ingredient._id === ingredientId.toString(),
+      ),
+    )
+    .filter(
+      (ingredient): ingredient is IBurgerIngredient => ingredient !== undefined,
+    );
+
   const maxVisible = 5;
-  const hiddenCount = ingredients.length - maxVisible;
+  const visibleIngredients = filteredIngredients.slice(0, maxVisible);
+  const hiddenCount = filteredIngredients.length - maxVisible;
 
   return (
     <div className={styles.row}>
-      {ingredients.slice(0, maxVisible).map((item, index) => (
+      {visibleIngredients.map((item, index) => (
         <div
           key={index}
           className={styles.ingredient_image}
@@ -26,13 +40,17 @@ const IngredientImgList: React.FC<IOrder> = ({ ...props }) => {
           style={{ zIndex: 0 }}
         >
           <img
-            src={ingredients[maxVisible].image_mobile}
-            alt={ingredients[maxVisible].name}
+            src={filteredIngredients[maxVisible].image_mobile}
+            alt={filteredIngredients[maxVisible].name}
             className={styles.hidden_image}
           />
-          <span className={`text text_type_main-default ${styles.hidden_text}`}>
-            +{hiddenCount - 1}
-          </span>
+          {hiddenCount - 1 > 0 && (
+            <span
+              className={`text text_type_main-default ${styles.hidden_text}`}
+            >
+              +{hiddenCount - 1}
+            </span>
+          )}
         </div>
       )}
     </div>
