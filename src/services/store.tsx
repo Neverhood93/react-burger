@@ -31,15 +31,18 @@ const feedMiddleware = socketMiddleware({
   onMessage: wsFeedMessage,
 });
 
-const profileOrdersMiddleware = socketMiddleware({
-  connect: wsProfileOrdersConnect,
-  disconnect: wsProfileOrdersDisconnect,
-  onConnecting: wsProfileOrdersConnecting,
-  onOpen: wsProfileOrdersOpen,
-  onClose: wsProfileOrdersClose,
-  onError: wsProfileOrdersError,
-  onMessage: wsProfileOrdersMessage,
-});
+const profileOrdersMiddleware = socketMiddleware(
+  {
+    connect: wsProfileOrdersConnect,
+    disconnect: wsProfileOrdersDisconnect,
+    onConnecting: wsProfileOrdersConnecting,
+    onOpen: wsProfileOrdersOpen,
+    onClose: wsProfileOrdersClose,
+    onError: wsProfileOrdersError,
+    onMessage: wsProfileOrdersMessage,
+  },
+  true,
+);
 
 export const store = configureStore({
   reducer: rootReducer,

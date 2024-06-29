@@ -5,6 +5,7 @@ import {
 } from "@reduxjs/toolkit";
 import { RootState, AppDispatch } from "../store";
 import { checkUserAuth } from "../auth/action";
+import { wsProfileOrdersConnect } from "../profile-orders/actions";
 
 export type TWsActionTypes = {
   connect: ActionCreatorWithPayload<string>;
@@ -66,7 +67,9 @@ export const socketMiddleware = (
               withTokenRefresh &&
               parsedData.message === "Invalid or missing token"
             ) {
-              dispatch(checkUserAuth());
+              dispatch(checkUserAuth()).then((response) => {
+                dispatch(wsProfileOrdersConnect(url));
+              });
 
               dispatch(disconnect());
 
