@@ -5,16 +5,15 @@ import {
   getFeedWebsocketStatus,
 } from "../../services/feed/selectors";
 import { wsFeedConnect, wsFeedDisconnect } from "../../services/feed/action";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import OrderList from "../../components/order-list/order-list";
 import OrderDashboard from "../../components/order-dashboard/order-dashboard";
 import styles from "./feed-orders.module.css";
 import { getIngredients } from "../../services/ingredients/selectors";
 import { filterOrdersWithValidIngredients } from "../../utils/utils";
+import { FEED_SERVER_URL } from "../../utils/constants";
 
 function FeedOrdersPage() {
-  const FEED_SERVER_URL = "wss://norma.nomoreparties.space/orders/all";
-
   const dispatch = useAppDispatch();
   const orders = useAppSelector(getFeedOrders);
   const ingredients = useAppSelector(getIngredients);
@@ -29,7 +28,9 @@ function FeedOrdersPage() {
     };
   }, [dispatch]);
 
-  const filteredOrders = filterOrdersWithValidIngredients(orders, ingredients);
+  const filteredOrders = useMemo(() => {
+    return filterOrdersWithValidIngredients(orders, ingredients);
+  }, [orders, ingredients]);
 
   if (isDisconnected) {
     return <p>Ошибка: WebSocket не подключен</p>;

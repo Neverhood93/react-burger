@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { WebsocketStatus } from "../../types/types";
-import React, { useEffect } from "react";
+import React, { useEffect, useMemo } from "react";
 import OrderList from "../../components/order-list/order-list";
 import styles from "./profile-orders.module.css";
 import ProfileNavBar from "../profile/profile-nav-bar";
@@ -14,10 +14,11 @@ import {
 } from "../../services/profile-orders/actions";
 import { getIngredients } from "../../services/ingredients/selectors";
 import { filterOrdersWithValidIngredients } from "../../utils/utils";
+import { PROFILE_ORDERS_SERVER_BASE_URL } from "../../utils/constants";
 
 function ProfileOrdersPage() {
   const accessToken = localStorage.getItem("token") || "";
-  const PROFILE_ORDERS_SERVER_URL = `wss://norma.nomoreparties.space/orders?token=${accessToken.split(" ")[1]}`;
+  const PROFILE_ORDERS_SERVER_URL = `${PROFILE_ORDERS_SERVER_BASE_URL}?token=${accessToken.split(" ")[1]}`;
 
   const dispatch = useAppDispatch();
   const orders = useAppSelector(getProfileOrders);
@@ -33,10 +34,12 @@ function ProfileOrdersPage() {
     };
   }, [dispatch]);
 
-  const filteredOrders = filterOrdersWithValidIngredients(orders, ingredients);
-  const sortedOrders = filteredOrders.sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-  );
+  const filteredOrders = useMemo(() => {
+    return filterOrdersWithValidIngredients(orders, ingredients).sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+    );
+  }, [orders, ingredients]);
 
   if (isDisconnected) {
     return <p>Ошибка: WebSocket не подключен</p>;
@@ -48,7 +51,7 @@ function ProfileOrdersPage() {
         <ProfileNavBar />
       </div>
       <div className={styles.container_col_orders}>
-        <OrderList data={sortedOrders} isProfile={true} />
+        <OrderList data={filteredOrders} isProfile={true} />
       </div>
     </main>
   );

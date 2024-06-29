@@ -10,7 +10,9 @@ const OrderList: React.FC<IOrderList> = ({ data, isProfile }) => {
       <div className={styles.column}>
         <ul className={styles.list}>
           {data.map((item, index) => (
-            <OrderCard key={item._id} {...item} />
+            <li key={item._id}>
+              <OrderCard {...item} />
+            </li>
           ))}
         </ul>
       </div>
