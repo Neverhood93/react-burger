@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import AppHeader from "../app-header/app-header";
-import HomePage from "../../pages/home/homePage";
+import HomePage from "../../pages/home/home";
 import { Route, Routes, useLocation, useNavigate } from "react-router-dom";
-import LoginPage from "../../pages/login/loginPage";
-import RegisterPage from "../../pages/register/registerPage";
+import LoginPage from "../../pages/login/login";
+import RegisterPage from "../../pages/register/register";
 import ForgotPasswordPage from "../../pages/forgot-password/forgot-password";
 import ResetPasswordPage from "../../pages/reset-password/reset-password";
 import ProfilePage from "../../pages/profile/profile";
@@ -19,9 +19,11 @@ import {
 import { loadIngredients } from "../../services/ingredients/actions";
 import Preloader from "../common/preloader/preloader";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import OrdersPage from "../../pages/orders/orders";
+import FeedOrdersPage from "../../pages/feed-orders/feed-orders";
 import { AuthRoute, UnAuthRoute } from "../protected-route/protected-route";
 import { checkUserAuth } from "../../services/auth/action";
+import ProfileOrdersPage from "../../pages/profile-orders/profile-orders";
+import OrderDetails from "../order-details/order-details";
 
 function App() {
   const dispatch = useAppDispatch();
@@ -38,7 +40,7 @@ function App() {
   const navigate = useNavigate();
   const background = location.state && location.state.background;
 
-  const handleCloseIngredientClick = () => {
+  const handleCloseModalClick = () => {
     navigate(-1);
   };
 
@@ -55,6 +57,8 @@ function App() {
       <Routes location={background || location}>
         <Route path="/" element={<HomePage />} />
         <Route path="/ingredients/:id" element={<IngredientDetailsPage />} />
+        <Route path="/feed" element={<FeedOrdersPage />} />
+        <Route path="/feed/:number" element={<OrderDetails />} />
 
         <Route
           path="/login"
@@ -72,14 +76,17 @@ function App() {
           path="/reset-password"
           element={<UnAuthRoute component={<ResetPasswordPage />} />}
         />
-
         <Route
           path="/profile"
           element={<AuthRoute component={<ProfilePage />} />}
         />
         <Route
-          path="/orders"
-          element={<AuthRoute component={<OrdersPage />} />}
+          path="/profile/orders"
+          element={<AuthRoute component={<ProfileOrdersPage />} />}
+        />
+        <Route
+          path="/profile/orders/:number"
+          element={<AuthRoute component={<OrderDetails />} />}
         />
 
         <Route path="*" element={<NotFoundPage />} />
@@ -90,11 +97,24 @@ function App() {
           <Route
             path="/ingredients/:id"
             element={
-              <Modal
-                title="Детали ингредиента"
-                onClose={handleCloseIngredientClick}
-              >
+              <Modal title="Детали ингредиента" onClose={handleCloseModalClick}>
                 <IngredientDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/feed/:number"
+            element={
+              <Modal title="" onClose={handleCloseModalClick}>
+                <OrderDetails />
+              </Modal>
+            }
+          />
+          <Route
+            path="/profile/orders/:number"
+            element={
+              <Modal title="" onClose={handleCloseModalClick}>
+                <OrderDetails />
               </Modal>
             }
           />

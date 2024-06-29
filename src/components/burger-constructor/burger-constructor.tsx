@@ -4,17 +4,17 @@ import BurgerConstructorList from "./burger-constructor-list/burger-constructor-
 import TotalPrice from "../total-price/total-price";
 import { Button } from "@ya.praktikum/react-developer-burger-ui-components";
 import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
+import CreatedOrderDetails from "../created-order-details/created-order-details";
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { getAllSelectedIngredients } from "../../services/burger-constructor/selectors";
 import {
-  getCurrentOrder,
-  getIsOrderDetailModalOpen,
-  getOrderError,
-  getOrderLoading,
+  getCreatedOrder,
+  getIsCreatedOrderDetailModalOpen,
+  getCreateOrderError,
+  getCreateOrderLoading,
 } from "../../services/order/selectors";
 import { createOrder } from "../../services/order/actions";
-import { closeOrderDetailModal } from "../../services/order/reducer";
+import { closeCreatedOrderDetailModal } from "../../services/order/reducer";
 import { clearIngredients } from "../../services/burger-constructor/reducer";
 import Preloader from "../common/preloader/preloader";
 import { getIsLoggedIn } from "../../services/auth/selectors";
@@ -23,10 +23,12 @@ import { useNavigate } from "react-router-dom";
 const BurgerConstructor: React.FC = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isOrderDetailModalOpen = useAppSelector(getIsOrderDetailModalOpen);
-  const currentOrder = useAppSelector(getCurrentOrder);
-  const loading = useAppSelector(getOrderLoading);
-  const error = useAppSelector(getOrderError);
+  const isOrderDetailModalOpen = useAppSelector(
+    getIsCreatedOrderDetailModalOpen,
+  );
+  const currentOrder = useAppSelector(getCreatedOrder);
+  const loading = useAppSelector(getCreateOrderLoading);
+  const error = useAppSelector(getCreateOrderError);
   const isLoggedIn = useAppSelector(getIsLoggedIn);
 
   const burgersData = useAppSelector(getAllSelectedIngredients);
@@ -56,7 +58,7 @@ const BurgerConstructor: React.FC = () => {
   };
 
   const closeOrderModal = () => {
-    dispatch(closeOrderDetailModal());
+    dispatch(closeCreatedOrderDetailModal());
   };
 
   const totalPrice = useMemo(() => {
@@ -87,7 +89,7 @@ const BurgerConstructor: React.FC = () => {
               {loading && <Preloader />}
               {error && <p>Ошибка: {error}</p>}
               {currentOrder && (
-                <OrderDetails orderNumber={currentOrder.order.number} />
+                <CreatedOrderDetails orderNumber={currentOrder.order.number} />
               )}
             </>
           </Modal>

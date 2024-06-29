@@ -1,15 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createOrder } from "./actions";
-import { IOrderResponse } from "../../types/types";
+import { createOrder, fetchOrder } from "./actions";
+import { IGetOrderResponse, IOrderResponse } from "../../types/types";
 
 interface OrderState {
-  currentOrder: IOrderResponse | null;
+  createdOrder: IOrderResponse | null;
+  createOrderLoading: boolean;
+  createOrderError: string | null;
+  isCreatedOrderDetailModalOpen: boolean;
+
+  currentOrder: IGetOrderResponse | null;
   orderLoading: boolean;
   orderError: string | null;
   isOrderDetailModalOpen: boolean;
 }
 
 const initialState: OrderState = {
+  createdOrder: null,
+  createOrderLoading: false,
+  createOrderError: null,
+  isCreatedOrderDetailModalOpen: false,
+
   currentOrder: null,
   orderLoading: false,
   orderError: null,
@@ -20,6 +30,9 @@ export const orderSlice = createSlice({
   name: "orders",
   initialState,
   reducers: {
+    closeCreatedOrderDetailModal: (state) => {
+      state.isCreatedOrderDetailModalOpen = false;
+    },
     closeOrderDetailModal: (state) => {
       state.isOrderDetailModalOpen = false;
     },
@@ -27,17 +40,35 @@ export const orderSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(createOrder.pending, (state) => {
+        state.createdOrder = null;
+        state.createOrderLoading = true;
+        state.createOrderError = null;
+        state.isCreatedOrderDetailModalOpen = true;
+      })
+      .addCase(createOrder.fulfilled, (state, action) => {
+        state.createdOrder = action.payload;
+        state.createOrderLoading = false;
+        state.isCreatedOrderDetailModalOpen = true;
+      })
+      .addCase(createOrder.rejected, (state, action) => {
+        state.createdOrder = null;
+        state.createOrderLoading = false;
+        state.createOrderError = action?.error?.message as string;
+        state.isCreatedOrderDetailModalOpen = true;
+      })
+
+      .addCase(fetchOrder.pending, (state) => {
         state.currentOrder = null;
         state.orderLoading = true;
         state.orderError = null;
         state.isOrderDetailModalOpen = true;
       })
-      .addCase(createOrder.fulfilled, (state, action) => {
+      .addCase(fetchOrder.fulfilled, (state, action) => {
         state.currentOrder = action.payload;
         state.orderLoading = false;
         state.isOrderDetailModalOpen = true;
       })
-      .addCase(createOrder.rejected, (state, action) => {
+      .addCase(fetchOrder.rejected, (state, action) => {
         state.currentOrder = null;
         state.orderLoading = false;
         state.orderError = action?.error?.message as string;
@@ -46,4 +77,5 @@ export const orderSlice = createSlice({
   },
 });
 
-export const { closeOrderDetailModal } = orderSlice.actions;
+export const { closeCreatedOrderDetailModal, closeOrderDetailModal } =
+  orderSlice.actions;

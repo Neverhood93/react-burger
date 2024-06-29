@@ -28,7 +28,7 @@ export default function AppHeader() {
             </ButtonHeader>
           )}
         </NavLink>
-        <NavLink to="/orders" className={styles.link_inactive}>
+        <NavLink to="/feed" className={styles.link_inactive}>
           {({ isActive }) => (
             <ButtonHeader>
               <ListIcon type={isActive ? "primary" : "secondary"} />
