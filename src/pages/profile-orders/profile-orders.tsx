@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "../../services/hooks";
 import { WebsocketStatus } from "../../types/types";
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import OrderList from "../../components/order-list/order-list";
 import styles from "./profile-orders.module.css";
 import ProfileNavBar from "../profile/profile-nav-bar";
@@ -17,8 +17,7 @@ import { filterOrdersWithValidIngredients } from "../../utils/utils";
 import { PROFILE_ORDERS_SERVER_BASE_URL } from "../../utils/constants";
 
 function ProfileOrdersPage() {
-  const accessToken = localStorage.getItem("token") || "";
-  const PROFILE_ORDERS_SERVER_URL = `${PROFILE_ORDERS_SERVER_BASE_URL}?token=${accessToken.split(" ")[1]}`;
+  const [profileOrdersServerUrl, setProfileOrdersServerUrl] = useState("");
 
   const dispatch = useAppDispatch();
   const orders = useAppSelector(getProfileOrders);
@@ -27,12 +26,20 @@ function ProfileOrdersPage() {
   const isDisconnected = status !== WebsocketStatus.ONLINE;
 
   useEffect(() => {
-    dispatch(wsProfileOrdersConnect(PROFILE_ORDERS_SERVER_URL));
+    const accessToken = localStorage.getItem("token") || "";
+    setProfileOrdersServerUrl(
+      `${PROFILE_ORDERS_SERVER_BASE_URL}?token=${accessToken.split(" ")[1]}`,
+    );
+  }, []);
 
-    return () => {
-      dispatch(wsProfileOrdersDisconnect());
-    };
-  }, [dispatch]);
+  useEffect(() => {
+    if (profileOrdersServerUrl) {
+      dispatch(wsProfileOrdersConnect(profileOrdersServerUrl));
+      return () => {
+        dispatch(wsProfileOrdersDisconnect());
+      };
+    }
+  }, [dispatch, profileOrdersServerUrl]);
 
   const filteredOrders = useMemo(() => {
     return filterOrdersWithValidIngredients(orders, ingredients).sort(

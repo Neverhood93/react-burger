@@ -1,5 +1,5 @@
 import styles from "./profile.module.css";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { logout } from "../../services/auth/action";
 import { useAppDispatch } from "../../services/hooks";
 
