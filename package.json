@@ -51,6 +51,7 @@
   "devDependencies": {
     "@testing-library/react": "^16.0.0",
     "@types/uuid": "^9.0.8",
+    "cypress": "^13.13.0",
     "fetch-mock": "^10.0.7",
     "jest": "^27.5.1",
     "prettier": "^3.2.5",
