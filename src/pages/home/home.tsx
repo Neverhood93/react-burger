@@ -7,16 +7,14 @@ import BurgerConstructor from "../../components/burger-constructor/burger-constr
 
 function HomePage() {
   return (
-    <>
-      <div className={styles.content}>
-        <main className={styles.main}>
-          <DndProvider backend={HTML5Backend}>
-            <BurgerIngredients />
-            <BurgerConstructor />
-          </DndProvider>
-        </main>
-      </div>
-    </>
+    <div className={styles.content}>
+      <main className={styles.main}>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients />
+          <BurgerConstructor />
+        </DndProvider>
+      </main>
+    </div>
   );
 }
 

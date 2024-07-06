@@ -128,3 +128,63 @@ export interface IProtectedRoute {
   onlyUnAuth?: boolean;
   component: ReactNode;
 }
+
+export enum WebsocketStatus {
+  CONNECTING = "CONNECTING...",
+  ONLINE = "ONLINE",
+  OFFLINE = "OFFLINE",
+}
+
+export enum OrderStatus {
+  CREATED = "created",
+  PENDING = "pending",
+  DONE = "done",
+}
+
+export interface IOrder {
+  _id: string;
+  number: number;
+  name: string;
+  ingredients: Array<number>;
+  status: OrderStatus;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface IOrderResponse {
+  success: boolean;
+  orders: IOrder[];
+  total: number;
+  totalToday: number;
+}
+
+export interface IOrderList {
+  data: IOrder[];
+  isProfile: boolean;
+}
+
+export interface IGetOrderResponse {
+  success: boolean;
+  orders: IOrder[];
+}
+
+export interface IOrderStatusList {
+  data: IOrder[];
+  status: OrderStatus;
+}
+
+export interface IIngredientListProps {
+  ingredients: IBurgerIngredient[];
+}
+
+export interface IIngredientListItemProps {
+  ingredient: IBurgerIngredient;
+  count: number;
+}
+
+export interface IIngredientMap {
+  [key: string]: {
+    ingredient: IBurgerIngredient;
+    count: number;
+  };
+}
