@@ -10,7 +10,7 @@ interface SelectedIngredientsState {
   ingredients: ISelectedBurgerIngredient[];
 }
 
-const initialState: SelectedIngredientsState = {
+export const initialState: SelectedIngredientsState = {
   bun: null,
   ingredients: [],
 };

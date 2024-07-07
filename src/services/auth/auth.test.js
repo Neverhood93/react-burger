@@ -10,7 +10,7 @@ import {
   refreshToken,
 } from "./action";
 
-describe("authSlice", () => {
+describe("authSlice redux store and actions", () => {
   test("should return the initial state", () => {
     expect(authSlice.reducer(undefined, { type: undefined })).toEqual(
       initialState,
