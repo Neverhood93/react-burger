@@ -20,7 +20,7 @@ interface AuthState {
   isForgotPasswordSent: boolean;
 }
 
-const initialState: AuthState = {
+export const initialState: AuthState = {
   user: null,
   isLoggedIn: false,
   authLoading: false,
