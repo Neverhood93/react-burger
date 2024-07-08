@@ -38,4 +38,20 @@ describe("сonstructor tests", function () {
     cy.get('[data-test-id="modal_overlay"]').click({ force: true });
     cy.get('[data-test-id="modal_box"]').should("not.exist");
   });
+
+  it("drag and drop ingredients", () => {
+    cy.get('[data-test-id="643d69a5c3f7b9001cfa093c"]').as("bun");
+    cy.get('[data-test-id="643d69a5c3f7b9001cfa0941"]').as("ingredient_1");
+    cy.get('[data-test-id="643d69a5c3f7b9001cfa093e"]').as("ingredient_2");
+    cy.get('[data-test-id="constructor"]').as("constructor");
+
+    cy.get("@bun").trigger("dragstart", { force: true });
+    cy.get("@constructor").trigger("drop", { force: true });
+
+    cy.get("@ingredient_1").trigger("dragstart", { force: true });
+    cy.get("@constructor").trigger("drop", { force: true });
+
+    cy.get("@ingredient_2").trigger("dragstart", { force: true });
+    cy.get("@constructor").trigger("drop", { force: true });
+  });
 });

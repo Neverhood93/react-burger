@@ -14,7 +14,9 @@ const BurgerIngredientsList: React.FC<IBurgerIngredientsList> = ({
   return (
     <ul className={styles.list}>
       {items.map((item) => (
-        <BurgerIngredientsItem key={item._id} {...item} />
+        <li>
+          <BurgerIngredientsItem key={item._id} {...item} />
+        </li>
       ))}
     </ul>
   );

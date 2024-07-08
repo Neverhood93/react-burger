@@ -36,23 +36,21 @@ const BurgerIngredientsItem: React.FC<IBurgerIngredient> = ({ ...props }) => {
       state={{ background: location }}
       className={styles.link}
     >
-      <li data-test-id={props._id}>
-        <div ref={dragRef} className={styles.ingredient}>
-          <img src={props.image} alt={props.name} />
-          <span className={styles.price}>
-            <span className="text text_type_digits-default mr-3">
-              {props.price}
-            </span>
-            <CurrencyIcon type="primary" />
+      <div data-test-id={props._id} ref={dragRef} className={styles.ingredient}>
+        <img src={props.image} alt={props.name} />
+        <span className={styles.price}>
+          <span className="text text_type_digits-default mr-3">
+            {props.price}
           </span>
-          <span className="text text_type_main-default">{props.name}</span>
-          {count > 0 && (
-            <div className={`text text_type_digits-default ${styles.count}`}>
-              {count}
-            </div>
-          )}
-        </div>
-      </li>
+          <CurrencyIcon type="primary" />
+        </span>
+        <span className="text text_type_main-default">{props.name}</span>
+        {count > 0 && (
+          <div className={`text text_type_digits-default ${styles.count}`}>
+            {count}
+          </div>
+        )}
+      </div>
     </Link>
   );
 };
