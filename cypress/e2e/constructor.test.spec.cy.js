@@ -1,49 +1,47 @@
-describe("сonstructor tests", function () {
+import { selectors } from "../support/selectors";
+
+describe("constructor tests", function () {
   beforeEach(function () {
     cy.intercept("GET", "ingredients", { fixture: "ingredients" });
-
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
   });
 
   it("should open modal with ingredient detail and close with close button", () => {
-    cy.get('[data-test-id="643d69a5c3f7b9001cfa093c"]').click({ force: true });
-    cy.get('[data-test-id="modal_box"]').should("exist");
+    cy.get(selectors.bun).click({ force: true });
+    cy.get(selectors.modalBox).should("exist");
 
-    cy.get('[data-test-id="ingredient_name"]').should(
+    cy.get(selectors.ingredientName).should(
       "have.text",
       "Краторная булка N-200i",
     );
-    cy.get('[data-test-id="ingredient_calories"]').should("have.text", "420");
-    cy.get('[data-test-id="ingredient_proteins"]').should("have.text", "80");
-    cy.get('[data-test-id="ingredient_fat"]').should("have.text", "24");
-    cy.get('[data-test-id="ingredient_carbohydrates"]').should(
-      "have.text",
-      "53",
-    );
+    cy.get(selectors.ingredientCalories).should("have.text", "420");
+    cy.get(selectors.ingredientProteins).should("have.text", "80");
+    cy.get(selectors.ingredientFat).should("have.text", "24");
+    cy.get(selectors.ingredientCarbohydrates).should("have.text", "53");
 
-    cy.get('[data-test-id="close_button"]').click({ force: true });
-    cy.get('[data-test-id="modal_box"]').should("not.exist");
+    cy.get(selectors.closeButton).click({ force: true });
+    cy.get(selectors.modalBox).should("not.exist");
   });
 
   it("should open modal with ingredient detail and close with Esc button", () => {
-    cy.get('[data-test-id="643d69a5c3f7b9001cfa093c"]').click({ force: true });
-    cy.get('[data-test-id="modal_box"]').should("exist");
+    cy.get(selectors.bun).click({ force: true });
+    cy.get(selectors.modalBox).should("exist");
     cy.get("body").type("{esc}");
-    cy.get('[data-test-id="modal_box"]').should("not.exist");
+    cy.get(selectors.modalBox).should("not.exist");
   });
 
   it("should open modal with ingredient detail and close with click on overlay", () => {
-    cy.get('[data-test-id="643d69a5c3f7b9001cfa093c"]').click({ force: true });
-    cy.get('[data-test-id="modal_box"]').should("exist");
-    cy.get('[data-test-id="modal_overlay"]').click({ force: true });
-    cy.get('[data-test-id="modal_box"]').should("not.exist");
+    cy.get(selectors.bun).click({ force: true });
+    cy.get(selectors.modalBox).should("exist");
+    cy.get(selectors.modalOverlay).click({ force: true });
+    cy.get(selectors.modalBox).should("not.exist");
   });
 
   it("drag and drop ingredients", () => {
-    cy.get('[data-test-id="643d69a5c3f7b9001cfa093c"]').as("bun");
-    cy.get('[data-test-id="643d69a5c3f7b9001cfa0941"]').as("ingredient_1");
-    cy.get('[data-test-id="643d69a5c3f7b9001cfa093e"]').as("ingredient_2");
-    cy.get('[data-test-id="constructor"]').as("constructor");
+    cy.get(selectors.bun).as("bun");
+    cy.get(selectors.ingredient1).as("ingredient_1");
+    cy.get(selectors.ingredient2).as("ingredient_2");
+    cy.get(selectors.constructor).as("constructor");
 
     cy.get("@bun").trigger("dragstart", { force: true });
     cy.get("@constructor").trigger("drop", { force: true });
