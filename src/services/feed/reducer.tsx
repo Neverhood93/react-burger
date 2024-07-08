@@ -10,7 +10,7 @@ export type TFeedStore = {
   connectionError: string | null;
 };
 
-const initialState: TFeedStore = {
+export const initialState: TFeedStore = {
   status: WebsocketStatus.OFFLINE,
   success: false,
   orders: [],
