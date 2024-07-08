@@ -1,46 +1,68 @@
-# Getting Started with Create React App
+# **Космическая бургерная_Stellar Burgers**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Учебный проект в рамках курса "React-разработчик" от Яндекс.Практикум.
 
-## Available Scripts
+## О проекте
+Stellar Burgers - это веб-приложение космической бургерной, позволяющее создавать уникальные бургеры, оформлять заказы и отслеживать их статус в реальном времени. Приложение предлагает интерактивный интерфейс для создания бургеров с помощью перетаскивания ингредиентов в конструктор для оформления заказа и включает в себя функции регистрации, авторизации и управления профилем пользователя.
 
-In the project directory, you can run:
+## Технологии
+- **React**
+- **TypeScript**
+- **Redux**
+- **Redux Toolkit**
+- **WebSocket**
+- **React Router**
+- **React DnD**
+- **CSS Modules**
+- **Использована библиотека UI-компонентов [React Developer Burger UI Components](https://github.com/yandex-praktikum/react-developer-burger-ui-components)**
 
-### `npm start`
+## Функциональность
+- Взаимодействие с сервером через API (https://norma.nomoreparties.space/api)
+- Открытие детальной информации об ингредиенте в модальном окне.
+- Перетаскивание ингредиентов для создания и изменения бургеров (Drag-and-Drop).
+- Создание заказа.
+- Обновляемая в реальном времени лента с заказами и статусами (WebSocket).
+- Открытие детальной информации о заказе в модальном окне.
+- Регистрация, авторизация и восстановление пароля.
+- Редактирование профиля пользователя.
+- История заказов с обновлением в реальном времени.
+- Защита маршрутов авторизацией.
+- Динамическая маршрутизация.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Установка и запуск
+Для локального запуска проекта выполните следующие шаги:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+1. Создайте рабочую директорию и перейдите в нее:
+    ```sh
+    mkdir <имя рабочей директории>
+    cd <имя рабочей директории>
+    ```
 
-### `npm test`
+2. Клонируйте репозиторий:
+    ```sh
+    git clone https://github.com/Neverhood93/react-burger.git
+    cd react-burger
+    ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+3. Установите зависимости:
+    ```sh
+    npm install
+    ```
 
-### `npm run build`
+4. Запустите проект:
+    ```sh
+    npm run start
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Тестирование
+1. Для тестирования бизнес-логики приложения:
+    ```sh
+    npm run test
+    ```
+2. Для функционального тестирования с использованием Cypress:
+    ```sh
+    npx cypress open
+    ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Адрес проекта
+[https://stellar-burgers.khudalex.nomorepartiesco.ru/](https://stellar-burgers.khudalex.nomorepartiesco.ru/)
