@@ -24,3 +24,18 @@
     max-height: 80vh;
     overflow-y: auto;
 }
+
+.button {
+    margin-top: 45px;
+    margin-right: 45px;
+    padding: 0;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: transparent;
+    border: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

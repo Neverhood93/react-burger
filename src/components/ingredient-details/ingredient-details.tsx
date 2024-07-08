@@ -33,13 +33,17 @@ const IngredientDetails: React.FC = () => {
   return (
     <div className={styles.details}>
       <img src={selectedIngredient.image_large} alt={selectedIngredient.name} />
-      <p className="text text_type_main-medium mt-4">
+      <p
+        data-test-id="ingredient_name"
+        className="text text_type_main-medium mt-4"
+      >
         {selectedIngredient.name}
       </p>
       <div className={styles.parameters}>
         <div className={styles.parameter_block}>
           <span className="text text_type_main-default">Калории,ккал</span>
           <span
+            data-test-id="ingredient_calories"
             className={`text text_type_main-default ${styles.parameter_value}`}
           >
             {selectedIngredient.calories}
@@ -48,6 +52,7 @@ const IngredientDetails: React.FC = () => {
         <div className={styles.parameter_block}>
           <span className="text text_type_main-default">Белки, г</span>
           <span
+            data-test-id="ingredient_proteins"
             className={`text text_type_main-default ${styles.parameter_value}`}
           >
             {selectedIngredient.proteins}
@@ -56,6 +61,7 @@ const IngredientDetails: React.FC = () => {
         <div className={styles.parameter_block}>
           <span className="text text_type_main-default">Жиры, г</span>
           <span
+            data-test-id="ingredient_fat"
             className={`text text_type_main-default ${styles.parameter_value}`}
           >
             {selectedIngredient.fat}
@@ -64,6 +70,7 @@ const IngredientDetails: React.FC = () => {
         <div className={styles.parameter_block}>
           <span className="text text_type_main-default">Углеводы, г</span>
           <span
+            data-test-id="ingredient_carbohydrates"
             className={`text text_type_main-default ${styles.parameter_value}`}
           >
             {selectedIngredient.carbohydrates}
