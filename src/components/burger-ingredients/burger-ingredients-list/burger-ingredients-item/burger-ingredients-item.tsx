@@ -36,7 +36,7 @@ const BurgerIngredientsItem: React.FC<IBurgerIngredient> = ({ ...props }) => {
       state={{ background: location }}
       className={styles.link}
     >
-      <div ref={dragRef} className={styles.ingredient}>
+      <div data-test-id={props._id} ref={dragRef} className={styles.ingredient}>
         <img src={props.image} alt={props.name} />
         <span className={styles.price}>
           <span className="text text_type_digits-default mr-3">

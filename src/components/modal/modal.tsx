@@ -31,16 +31,23 @@ const Modal: React.FC<PropsWithChildren<ModalProps>> = ({
   }, [onClose]);
 
   return ReactDOM.createPortal(
-    <>
+    <div data-test-id="modal_box">
       <ModalOverlay onClose={onClose} />
       <div className={styles.modal}>
         <div className={styles.header}>
           <p className="text text_type_main-large">{title}</p>
-          <CloseIcon type="primary" onClick={onClose} />
+          <button
+            className={styles.button}
+            type="button"
+            onClick={onClose}
+            data-test-id="close_button"
+          >
+            <CloseIcon type="primary" />
+          </button>
         </div>
         <div className={styles.content}>{children}</div>
       </div>
-    </>,
+    </div>,
     modalRoot,
   );
 };

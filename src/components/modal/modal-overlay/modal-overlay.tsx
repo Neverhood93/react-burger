@@ -12,6 +12,7 @@ const ModalOverlay: React.FC<ModalOverlayProps> = ({ onClose }) => {
       onClick={() => {
         onClose();
       }}
+      data-test-id="modal_overlay"
     ></div>
   );
 };

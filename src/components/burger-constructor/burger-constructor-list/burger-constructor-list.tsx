@@ -24,7 +24,7 @@ const BurgerConstructorList: React.FC = () => {
   });
 
   return (
-    <div ref={dropRef} className="constructor-list">
+    <div data-test-id="constructor" ref={dropRef} className="constructor-list">
       {!selectedBun ? (
         <div>
           <p className="text text_type_main-large">

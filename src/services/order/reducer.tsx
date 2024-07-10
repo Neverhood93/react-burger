@@ -14,7 +14,7 @@ interface OrderState {
   isOrderDetailModalOpen: boolean;
 }
 
-const initialState: OrderState = {
+export const initialState: OrderState = {
   createdOrder: null,
   createOrderLoading: false,
   createOrderError: null,

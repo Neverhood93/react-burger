@@ -5,7 +5,7 @@ interface IngredientModalState {
   selectedIngredient: IBurgerIngredient | null;
 }
 
-const initialState: IngredientModalState = {
+export const initialState: IngredientModalState = {
   selectedIngredient: null,
 };
 
